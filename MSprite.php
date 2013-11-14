@@ -41,7 +41,7 @@
  * @author Steven OBrien <steven.obrien@newicon.net>
  * @package nii
  */
-Class MSprite extends CApplicationComponent
+class MSprite extends CApplicationComponent
 {
 	/**
 	 * This defines the parent class to use on all elements that use the icon sprite

@@ -1,0 +1,15 @@
+{
+	"name": "maslosoft/m-sprite",
+	"type": "yii-extension",
+	"description": "Sprite generator for Yii",
+	"keywords" : ["sprite", "sprites", "icon", "icons", "yii"],
+	"license": "GNU LESSER GENERAL PUBLIC LICENSE",
+	"authors": [
+		{
+			"name": "Peter Maselkowski",
+			"email": "pmaselkowski@gmail.com",
+			"homepage": "http://maslosoft.com",
+			"role": "Developer"
+		}
+	]
+}
