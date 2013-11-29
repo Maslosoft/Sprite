@@ -135,6 +135,13 @@ class MSprite extends CApplicationComponent
 		Yii::app()->clientScript->registerCssFile($this->getAssetsUrl() . '/sprite.css');
 	}
 
+	public function reset()
+	{
+		$folder = $this->getAssetFolder();
+		@unlink(sprintf('%s/sprite.css', $folder));
+		@unlink(sprintf('%s/sprite.png', $folder));
+	}
+
 	/**
 	 * returns the file path to the published asset folder, 
 	 * - if $publish is false it will not publish the asset folder
