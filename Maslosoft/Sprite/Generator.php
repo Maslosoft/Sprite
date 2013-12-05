@@ -2,6 +2,12 @@
 
 namespace Maslosoft\Sprite;
 
+use CApplicationComponent;
+use CException;
+use CFileHelper;
+use Closure;
+use Yii;
+
 /**
  * MSprite class file.
  *
