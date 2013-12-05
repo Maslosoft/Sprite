@@ -4,9 +4,13 @@
  * MSprite class file.
  *
  * @author Steven OBrien <steven.obrien@newicon.net>
+ * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  * @link http://www.newicon.net/
+ * @link http://maslosoft.com Maslosoft
  * @copyright Copyright &copy; 2008-2011 Newicon Ltd
+ * @copyright 2013 Maslosoft http://maslosoft.com
  * @license http://www.yiiframework.com/license/
+ * @version 1.0.0
  */
 
 /**
