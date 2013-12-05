@@ -1,5 +1,5 @@
 {
-	"name": "maslosoft/m-sprite",
+	"name": "maslosoft/sprite",
 	"type": "yii-extension",
 	"description": "Sprite generator for Yii",
 	"keywords" : ["sprite", "sprites", "icon", "icons", "yii"],
