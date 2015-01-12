@@ -13,8 +13,8 @@
 		}
 	],
 	"autoload": {
-        "psr-0": {
-			  "Maslosoft\\Sprite" : "./"
+        "psr-4": {
+			  "Maslosoft\\Sprite\\" : "src"
         }
     }
 }
