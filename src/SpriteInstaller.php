@@ -9,11 +9,11 @@
 
 namespace Maslosoft\Sprite;
 
-use Maslosoft\Components\Install\InstallersBase;
+use Maslosoft\Ilmatar\Components\Install\InstallersBase;
 
 /**
  * Sprite installer
- * @SignalFor('Maslosoft\Components\Install\Installer')
+ * @SignalFor('Maslosoft\Ilmatar\Components\Install\Installer')
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
 class SpriteInstaller extends InstallersBase
