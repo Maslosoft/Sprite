@@ -5,7 +5,7 @@ Icon sprite generator
 
 Install with composer:
 
-~~~
+~~~sh
 composer require "maslosoft/sprite:*"
 ~~~
 
