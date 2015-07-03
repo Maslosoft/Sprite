@@ -6,7 +6,7 @@ Icon sprite generator
 Install with composer:
 
 ~~~
-composer require maslosoft/m-sprite dev-master
+composer require "maslosoft/sprite:*"
 ~~~
 
 Configure it:
@@ -16,7 +16,7 @@ Configure it:
 	 'components' => [
 	 ...
 		  'sprite' => [
-				'class' => 'vendor.maslosoft.m-sprite.MSprite',
+				'class' => Maslosoft\Sprite\Generator::class,
 				'cssIconClass' => 'icon',
 				'imageFolderPath' => [
 					 realpath(dirname(__FILE__) . '/../../www/css/icons')
