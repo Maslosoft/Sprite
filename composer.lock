@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "136829a9fd45b232f31dc7bed9d0e939",
+    "hash": "04350be9facabaf7d62af038af41ebc0",
     "packages": [
         {
             "name": "maslosoft/addendum",
@@ -914,6 +914,51 @@
             "time": "2015-06-24 19:55:15"
         },
         {
+            "name": "maslosoft/hedron",
+            "version": "1.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Maslosoft/Hedron.git",
+                "reference": "e5fde0a4e917075282ed06d44fa40831fd313052"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Maslosoft/Hedron/zipball/e5fde0a4e917075282ed06d44fa40831fd313052",
+                "reference": "e5fde0a4e917075282ed06d44fa40831fd313052",
+                "shasum": ""
+            },
+            "require": {
+                "phpunit/php-code-coverage": "~2",
+                "symfony/console": "~2",
+                "symfony/finder": "~2",
+                "symfony/yaml": "~2",
+                "zordius/lightncandy": "0.18.*"
+            },
+            "bin": [
+                "hedron"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Maslosoft\\Hedron\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "AGPL",
+                "Commercial"
+            ],
+            "authors": [
+                {
+                    "name": "Peter Maselkowski",
+                    "email": "pmaselkowski@gmail.com"
+                }
+            ],
+            "description": "PHP source code class header applier",
+            "homepage": "http://maslosoft.com/hedron/",
+            "time": "2015-03-19 11:05:06"
+        },
+        {
             "name": "maslosoft/sprite-test",
             "version": "dev-master",
             "source": {
@@ -923,7 +968,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/SpriteTest/zipball/688dbcc43bdebe9cf2f59c152aa73f63f4ee76dd",
+                "url": "https://api.github.com/repos/Maslosoft/SpriteTest/zipball/ae45a288400b4f612c056d936bd7b704b85d7ae6",
                 "reference": "4ca443806f81cd639f2e3be8399d25c2f70cf4cf",
                 "shasum": ""
             },
@@ -2062,6 +2107,53 @@
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
             "time": "2015-06-18 19:21:56"
+        },
+        {
+            "name": "zordius/lightncandy",
+            "version": "v0.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zordius/lightncandy.git",
+                "reference": "24be6909c37391f4648ce1fdf19036b11bd56d05"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zordius/lightncandy/zipball/24be6909c37391f4648ce1fdf19036b11bd56d05",
+                "reference": "24be6909c37391f4648ce1fdf19036b11bd56d05",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.17"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/lightncandy.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zordius Chen",
+                    "email": "zordius@yahoo-inc.com"
+                }
+            ],
+            "description": "An extremely fast PHP implementation of handlebars ( http://handlebarsjs.com/ ) and mustache ( http://mustache.github.io/ ).",
+            "homepage": "https://github.com/zordius/lightncandy",
+            "keywords": [
+                "handlebars",
+                "logicless",
+                "mustache",
+                "php",
+                "template"
+            ],
+            "time": "2015-01-01 04:37:19"
         }
     ],
     "aliases": [],

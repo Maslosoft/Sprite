@@ -1,9 +1,11 @@
 {
 	"name": "maslosoft/sprite",
-	"type": "yii-extension",
-	"description": "Sprite generator for Yii",
+	"description": "Icons sprite generator with signals support",
 	"keywords" : ["sprite", "sprites", "icon", "icons", "yii"],
-	"license": "GNU LESSER GENERAL PUBLIC LICENSE",
+	"license": [
+		"AGPL",
+		"Commercial"
+	],
 	"authors": [
 		{
 			"name": "Peter Maselkowski",
@@ -24,12 +26,13 @@
 		"maslosoft/signals": "*",
 		"symfony/console": "^2",
 		"maslosoft/sitcom": "*",
-		"symfony/finder": "^2.7",
+		"symfony/finder": "^2",
 		"maslosoft/sigurd": "*",
 		"psr/log": "^1.0",
-		"maslosoft/cli-shared": "^0.0.5"
+		"maslosoft/cli-shared": "*"
 	},
 	"require-dev": {
-		"maslosoft/sprite-test": "@dev"
+		"maslosoft/sprite-test": "@dev",
+		"maslosoft/hedron": "*"
 	}
 }

@@ -5,11 +5,11 @@ Icon sprite generator
 
 Install with composer:
 
-~~~
-composer require maslosoft/sprite
+~~~sh
+composer require "maslosoft/sprite:*"
 ~~~
 
-Yii Config:
+When using with Yii can be configured like that:
 
 ~~~php
 	 // application components
