@@ -12,9 +12,22 @@
 			"role": "Developer"
 		}
 	],
+	"bin":[
+		"sprite"
+	],
 	"autoload": {
         "psr-4": {
 			  "Maslosoft\\Sprite\\" : "src"
         }
-    }
+    },
+	"require": {
+		"maslosoft/signals": "*",
+		"symfony/console": "^2",
+		"maslosoft/sitcom": "*",
+		"symfony/finder": "^2.7",
+		"maslosoft/sigurd": "*"
+	},
+	"require-dev": {
+		"maslosoft/sprite-test": "@dev"
+	}
 }

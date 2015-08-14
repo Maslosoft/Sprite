@@ -2,11 +2,13 @@
 
 namespace Maslosoft\Sprite;
 
-use CApplicationComponent;
-use CException;
-use CFileHelper;
 use CLogger;
 use Closure;
+use Maslosoft\Sprite\Models\SpriteImage;
+use RuntimeException;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
+use UnexpectedValueException;
 use Yii;
 
 /**
@@ -15,71 +17,49 @@ use Yii;
  * @author Steven OBrien <steven.obrien@newicon.net>
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  * @link http://www.newicon.net/
- * @link http://maslosoft.com Maslosoft
+ * @link http://maslosoft.com/sprite/ Maslosoft
  * @copyright Copyright &copy; 2008-2011 Newicon Ltd
- * @copyright 2013 Maslosoft http://maslosoft.com
+ * @copyright 2013-2015 Maslosoft http://maslosoft.com
  * @license http://www.yiiframework.com/license/
- * @version 2.0.0
  */
 
 /**
  * generate a sprite from the icon set
  * Principles of operation: (or... how to use it)
- * So you have lots of icons and images floating around. 
+ * So you have lots of icons and images floating around.
  * - famfamfam (http://famfamfam.com)
  * - fugue (http://p.yusukekamiyamane.com/) (https://github.com/yusukekamiyamane/fugue-icons)
- * 
- * famfamfam icon set is great and ubiquitous on the web, and comes with a few thousand 
+ *
+ * famfamfam icon set is great and ubiquitous on the web, and comes with a few thousand
  * icons then there is the fugue icon set which is excellent as well, this has even more.
  * I typically use a few of these icons in all my projects but usually only a handful.
  * So...
- * 
+ *
  * Goals of this class.
  * - I specify which out of a bunch of icons I use in my application
  * - This class generates a nice sprite.png file with all the images together
  * - This class generates a nice sprite.css file with all the necessary classes
- *   following the convention: .icon .name-of-icon 
- *   some notes on naming. All underscores in image names are converted to "-" 
+ *   following the convention: .icon .name-of-icon
+ *   some notes on naming. All underscores in image names are converted to "-"
  *   for the css classes, (can't stand "_" in css class names, is this just me?)
- *   the extension is removed. if the file is in a folder heirachy 
+ *   the extension is removed. if the file is in a folder heirachy
  *   then this is reflected in the naming, for example .icon .folder-icon-name
  * - it then, like a true gentleman, publishes them for me, using the yii asset manager
- * - if you ad more images simple delete the asset folder and next page refrsh 
+ * - if you ad more images simple delete the asset folder and next page refrsh
  *   a new sprite will spawn into existence
  * - Bob is now your uncle.
- * 
- * @property $cssParentClass
- * @property $sprites populated automatically if empty
- * @property mixed $imageFolderPath
+ *
  * @author Steven OBrien <steven.obrien@newicon.net>
- * @package nii
  */
-class Generator extends CApplicationComponent
+class Generator
 {
-
-	/**
-	 * This defines the parent class to use on all elements that use the icon sprite
-	 * for example defining an icon to apear on an element you would write the
-	 * following: class="icon name-of-icon"
-	 *
-	 * @property string
-	 */
-	public $cssSpriteClass = 'sprite';
 
 	/**
 	 * class name of convienent icon class, works for the famfamfam and fugue icon sets
 	 * easilly display an icon inline that is size 16x16
-	 * @var type 
+	 * @var type
 	 */
-	public $cssIconClass = 'icon';
-	public $cssIconPrefix = '';
-
-	/**
-	 * array of image paths relative to the MSprite::$imageFolderPath to include in the sprite, without a preceeding slash
-	 * this is automatically populated if empty, by MSprite::findFiles()
-	 * @property array 
-	 */
-	public $sprites = array();
+	public $iconCssClass = 'icon';
 
 	/**
 	 * Stores the path to the folder where the individual images that
@@ -87,7 +67,7 @@ class Generator extends CApplicationComponent
 	 * can be an array of imagefolder paths
 	 * @property mixed
 	 */
-	public $imageFolderPath;
+	public $iconPaths;
 
 	/**
 	 * Name of executable for png optimizer, if emty, no optimizer will be used
@@ -96,14 +76,21 @@ class Generator extends CApplicationComponent
 	public $optimizer = 'pngcrush';
 
 	/**
+	 * array of image paths relative to the MSprite::$imageFolderPath to include in the sprite, without a preceeding slash
+	 * this is automatically populated if empty, by MSprite::findFiles()
+	 * @var SpriteImage[]
+	 */
+	private $_sprites = [];
+
+	/**
 	 * array of all image data
 	 * @var array
 	 */
-	private $_images = array();
+	private $_images = [];
 
 	/**
 	 * get the filepath to the components asset folder
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getAssetFolder()
@@ -113,8 +100,8 @@ class Generator extends CApplicationComponent
 
 	/**
 	 * get the url path to the sprite.css file
-	 * 
-	 * @return string 
+	 *
+	 * @return string
 	 */
 	public function getSpriteCssFile()
 	{
@@ -125,8 +112,8 @@ class Generator extends CApplicationComponent
 	 * gets the url to the components published assets folder
 	 * if the assets folder does not exist it wil re generate the sprite
 	 * and publish the assets folder
-	 * 
-	 * @return string 
+	 *
+	 * @return string
 	 */
 	public function getAssetsUrl()
 	{
@@ -157,11 +144,11 @@ class Generator extends CApplicationComponent
 	}
 
 	/**
-	 * returns the file path to the published asset folder, 
+	 * returns the file path to the published asset folder,
 	 * - if $publish is false it will not publish the asset folder
 	 *   and will return the correct file path
 	 * - if $publish is true then it will publish the folder
-	 * 
+	 *
 	 * @param boolean $publish default true
 	 * @return string the published asset folder file path
 	 */
@@ -174,14 +161,16 @@ class Generator extends CApplicationComponent
 	/**
 	 * Generates the sprite.png and sprite.css files and publishes
 	 * them to theappropriate published assets folder
-	 * 
+	 *
 	 * @return void
 	 */
 	public function generate()
 	{
 // publish the path
-		if (empty($this->sprites))
+		if (empty($this->_sprites))
+		{
 			$this->findFiles();
+		}
 		if (!file_exists($this->getAssetFolder()))
 		{
 			mkdir($this->getAssetFolder());
@@ -235,9 +224,13 @@ class Generator extends CApplicationComponent
 		}
 		$fp = $this->getAssetFolder() . DIRECTORY_SEPARATOR . 'sprite.png';
 		imagepng($sprite, $fp);
-		ImageDestroy($sprite);
+		imagedestroy($sprite);
 		if ($this->optimizer)
 		{
+			if (!is_executable($this->optimizer))
+			{
+				return;
+			}
 			if (exec($this->optimizer))
 			{
 				$src = $fp . '.tmp';
@@ -257,7 +250,7 @@ class Generator extends CApplicationComponent
 	{
 		$dimensions = $this->_getDimensions();
 
-		$sizes = array();
+		$sizes = [];
 		foreach ($this->_images as $image)
 		{
 			$sizes[$image['width']] = $image['width'];
@@ -278,14 +271,14 @@ class Generator extends CApplicationComponent
 				"\n";
 		foreach ($sizes as $size)
 		{
-			$css .= sprintf($template, $this->cssIconClass, $size);
+			$css .= sprintf($template, $this->iconCssClass, $size);
 		}
 		foreach ($dimensions['groups'] as $group)
 		{
 			$top = $group['height'];
 			foreach ($group['images'] as $image)
 			{
-				$css .= '.' . $this->cssIconClass . '-' . $image['name'] . '{';
+				$css .= '.' . $this->iconCssClass . '-' . $image['name'] . '{';
 				$css .= 'background-position:' . -$group['offset'] . 'px ' . ($top - $group['height']) . 'px;';
 				$css .= '}' . "\n";
 				$top -= $image['height'];
@@ -297,7 +290,7 @@ class Generator extends CApplicationComponent
 		$pathForIDE = Yii::app()->basePath . '/../www/css/sprites-for-ide.css';
 		if (YII_DEBUG)
 		{
-			if(is_writable($pathForIDE))
+			if (is_writable($pathForIDE))
 			{
 				file_put_contents($pathForIDE, sprintf("/*THIS FILE IS ONLY FOR IDE AUTOCOMPLETE, GENERATED BY '%s'*/\n", __CLASS__) . $css);
 			}
@@ -402,21 +395,25 @@ class Generator extends CApplicationComponent
 	/**
 	 * create an array with specific individual image information in
 	 * populates @see MSprite::_images
-	 * 
+	 *
 	 * @return void
 	 */
 	private function _generateImageData()
 	{
-		foreach ($this->sprites as $i => $s)
+		foreach ($this->_sprites as $i => $s)
 		{
-			$imgPath = $s['imageFolder'] . '/' . $s['path'];
+			$imgPath = $s->getFullPath();
 			if (!file_exists($imgPath))
-				throw new CException("The image file's path '$imgPath' does not exist.");
+			{
+				throw new UnexpectedValueException("The image file's path '$imgPath' does not exist.");
+			}
 			$info = getimagesize($imgPath);
 			if (!is_array($info))
-				throw new CException("The image '$imgPath' is not a correct image format.");
-			$this->_images[$i]['size'] = filesize($imgPath);
+			{
+				throw new UnexpectedValueException("The image '$imgPath' is not a correct image format.");
+			}
 			$this->_images[$i]['path'] = $imgPath;
+			$this->_images[$i]['size'] = filesize($imgPath);
 			$this->_images[$i]['width'] = $info[0];
 			$this->_images[$i]['height'] = $info[1];
 			$this->_images[$i]['mime'] = $info['mime'];
@@ -425,8 +422,11 @@ class Generator extends CApplicationComponent
 			// convert the relative path into the class name
 			// replace slashes with dashes and remove extension from file name
 			$p = pathinfo($imgPath);
-			$name = str_replace(array('/', '\\', '_'), '-', $s['path']);
-			$this->_images[$i]['name'] = strtolower(str_replace(array($p['extension'], '.'), '', $name));
+			$name = str_replace(['/', '\\', '_'], '-', $s->basePath);
+			/**
+			 * FIXME Below str_replace could ovverride file name if contains 'png/gif/jpg' in name
+			 */
+			$this->_images[$i]['name'] = strtolower(str_replace([$p['extension'], '.'], '', $name));
 		}
 
 		$widths = [];
@@ -452,8 +452,8 @@ class Generator extends CApplicationComponent
 	 */
 	public function getIconPath()
 	{
-		(array) $this->imageFolderPath;
-		foreach ($this->imageFolderPath as & $path)
+		(array) $this->iconPaths;
+		foreach ($this->iconPaths as & $path)
 		{
 			if ($path instanceof Closure)
 			{
@@ -461,7 +461,7 @@ class Generator extends CApplicationComponent
 			}
 			$path = (string) $path;
 		}
-		return $this->imageFolderPath;
+		return $this->iconPaths;
 	}
 
 	/**
@@ -473,19 +473,33 @@ class Generator extends CApplicationComponent
 	 */
 	public function findFiles()
 	{
-		$options = array('fileTypes' => array('png', 'gif', 'jpeg', 'jpg'));
+		$types = [
+			'png',
+			'gif',
+			'jpeg',
+			'jpg'
+		];
 		// must be an array of folders, this is ensured in getIconPath function
-		foreach ($this->getIconPath() as $iFolder)
+		foreach ($this->getIconPath() as $path)
 		{
-			if (!is_dir($iFolder))
-				throw new CException("The folder path '$iFolder' does not exist.");
-			$files = CFileHelper::findFiles($iFolder, $options);
-			foreach ($files as $p)
+			if (empty($path))
 			{
-				$this->sprites[] = array(
-					'imageFolder' => $iFolder,
-					'path' => trim(str_replace(realpath($iFolder), '', $p), DIRECTORY_SEPARATOR)
-				);
+				throw new UnexpectedValueException("Found empty path in");
+			}
+			if (!is_dir($path))
+			{
+				throw new RuntimeException("The folder path '$path' does not exist");
+			}
+			$finder = new Finder();
+			foreach ($types as $ext)
+			{
+				$finder->name("*.$ext");
+			}
+
+			foreach ($finder->in($path) as $file)
+			{
+				/* @var $file SplFileInfo */
+				$this->_sprites[] = new SpriteImage($path, $file);
 			}
 		}
 	}

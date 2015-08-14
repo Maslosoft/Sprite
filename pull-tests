@@ -1,0 +1,3 @@
+#!/bin/bash
+cd vendor/maslosoft/sprite-test
+git pull

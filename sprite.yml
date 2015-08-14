@@ -1,0 +1,5 @@
+runtimePath: runtime
+generatedPath: generated
+iconCssClass: icon
+iconPaths:
+   - icons

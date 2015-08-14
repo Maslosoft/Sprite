@@ -1,0 +1,20 @@
+actor: Tester
+paths:
+    tests: vendor/maslosoft/sprite-test/tests
+    log: tests/_output
+    data: vendor/maslosoft/sprite-test/tests/_data
+    helpers: vendor/maslosoft/sprite-test/tests/_support
+extensions:
+    enabled:
+        - Maslosoft\SpriteTest\Extensions\SpriteWipe
+settings:
+    bootstrap: _bootstrap.php
+    colors: true
+    memory_limit: 1024M
+coverage:
+    enabled: true
+    remote: false
+    xml: coverage.clover
+    html: true
+    include:
+        - src/*

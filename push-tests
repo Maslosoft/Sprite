@@ -1,0 +1,5 @@
+#!/bin/bash
+cd vendor/maslosoft/sprite-test
+git add . -A
+git commit -am'+ Tests'
+git push
