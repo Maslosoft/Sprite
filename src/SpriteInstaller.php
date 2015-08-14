@@ -1,10 +1,13 @@
 <?php
 
 /**
- * @licence For licence @see LICENCE.html
+ * This software package is licensed under `AGPL, Commercial` license[s].
  *
- * @copyright Maslosoft
- * @link http://maslosoft.com/
+ * @package maslosoft/sprite
+ * @license AGPL, Commercial
+ *
+ * @copyright Copyright (c) Peter Maselkowski <pmaselkowski@gmail.com>
+ *
  */
 
 namespace Maslosoft\Sprite;
