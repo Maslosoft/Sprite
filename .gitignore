@@ -1,2 +1,7 @@
 /nbproject/private/
-/vendor/
+/vendor
+/assets
+/models
+/unit
+/extensions
+/_bootstrap.php

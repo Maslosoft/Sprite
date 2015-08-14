@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ea38edecf340a124fd41e278dbf2d417",
+    "hash": "8172095ba5cb9ee71a890fd8febace99",
     "packages": [
         {
             "name": "maslosoft/addendum",
@@ -923,7 +923,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/SpriteTest/zipball/4ca443806f81cd639f2e3be8399d25c2f70cf4cf",
+                "url": "https://api.github.com/repos/Maslosoft/SpriteTest/zipball/688dbcc43bdebe9cf2f59c152aa73f63f4ee76dd",
                 "reference": "4ca443806f81cd639f2e3be8399d25c2f70cf4cf",
                 "shasum": ""
             },

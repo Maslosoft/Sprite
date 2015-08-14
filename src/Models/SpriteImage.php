@@ -101,12 +101,23 @@ class SpriteImage implements ArrayAccess
 
 		// Assign css name
 		$ext = $this->info->getExtension();
+
 		// Replace path parts with `-`
 		$name = str_replace(['/', '\\', '_'], '-', $this->info->getRelativePathname());
+
 		// Remove leading `-`
 		$name = preg_replace('~^-*~', '', $name);
+
 		// Remove double dashes
 		$name = preg_replace('~-+~', '-', $name);
+
+		// Remove file extension
+		$name = preg_replace("~\.$ext$~", '', $name);
+
+		// Replace dots with -
+		$name = preg_replace('~\.~', '-', $name);
+
+		$this->name = $name;
 	}
 
 	/**

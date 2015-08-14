@@ -4,7 +4,12 @@ namespace Maslosoft\Sprite;
 
 use CLogger;
 use Closure;
+use Maslosoft\Sprite\Helpers\ImageSorter;
+use Maslosoft\Sprite\Interfaces\GeneratorInterface;
 use Maslosoft\Sprite\Models\SpriteImage;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use RuntimeException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -51,8 +56,27 @@ use Yii;
  *
  * @author Steven OBrien <steven.obrien@newicon.net>
  */
-class Generator
+class Generator implements GeneratorInterface, LoggerAwareInterface
 {
+
+	/**
+	 * Path where sprites will be saved
+	 * @var string
+	 */
+	public $runtimePath = '';
+
+	/**
+	 * Path to IDE stub with. Generated CSS will be stored here as well.
+	 * This allows css icon name autocomplete within IDE's like NetBeans or Eclipse.
+	 * @var string
+	 */
+	public $ideStubPath = '';
+
+	/**
+	 * PSR compliant logger Logger. This can also be set by setLogger.
+	 * @var LoggerInterface
+	 */
+	public $logger = null;
 
 	/**
 	 * class name of convienent icon class, works for the famfamfam and fugue icon sets
@@ -88,54 +112,41 @@ class Generator
 	 */
 	private $_images = [];
 
-	/**
-	 * get the filepath to the components asset folder
-	 *
-	 * @return string
-	 */
-	public function getAssetFolder()
+	public function __construct()
 	{
-		return Yii::app()->getRuntimePath() . '/MSprite';
+		$this->logger = new NullLogger;
 	}
 
 	/**
-	 * get the url path to the sprite.css file
-	 *
-	 * @return string
+	 * Generates the sprite.png and sprite.css files
 	 */
-	public function getSpriteCssFile()
+	public function generate()
 	{
-		return $this->getAssetsUrl() . '/sprite.css';
-	}
-
-	/**
-	 * gets the url to the components published assets folder
-	 * if the assets folder does not exist it wil re generate the sprite
-	 * and publish the assets folder
-	 *
-	 * @return string
-	 */
-	public function getAssetsUrl()
-	{
-// check if we need to generate the sprite
-// if the asset folder exists we will assume we do not
-// want to regenerate the sprite
-		if (!file_exists($this->getAssetFolder()) || !file_exists($this->getPublishedAssetsPath() . '/sprite.png'))
+		// Prepare folder
+		if (!file_exists($this->getAssetFolder()))
 		{
-			$this->generate();
+			mkdir($this->getAssetFolder());
 		}
-		return Yii::app()->getAssetManager()->publish($this->getAssetFolder(), null, null, null);
+
+		$this->findFiles();
+		$this->_generateImage();
+		$this->_generateCss();
 	}
 
 	/**
-	 * uses CClientScript to register the sprite css script
+	 * Set PSR compliant logger
+	 * @param LoggerInterface $logger
+	 * @return \Maslosoft\Sprite\Generator
 	 */
-	public function registerSpriteCss()
+	public function setLogger(LoggerInterface $logger)
 	{
-//		$this->getAssetsUrl();
-		Yii::app()->clientScript->registerCssFile($this->getAssetsUrl() . '/sprite.css');
+		$this->logger = $logger;
+		return $this;
 	}
 
+	/**
+	 * Remove generated sprite and css file
+	 */
 	public function reset()
 	{
 		$folder = $this->getAssetFolder();
@@ -144,47 +155,19 @@ class Generator
 	}
 
 	/**
-	 * returns the file path to the published asset folder,
-	 * - if $publish is false it will not publish the asset folder
-	 *   and will return the correct file path
-	 * - if $publish is true then it will publish the folder
+	 * get the filepath to the components asset folder
 	 *
-	 * @param boolean $publish default true
-	 * @return string the published asset folder file path
+	 * @return string
 	 */
-	public function getPublishedAssetsPath()
+	private function getAssetFolder()
 	{
-		$a = Yii::app()->getAssetManager();
-		return $a->getPublishedPath($this->getAssetFolder());
-	}
-
-	/**
-	 * Generates the sprite.png and sprite.css files and publishes
-	 * them to theappropriate published assets folder
-	 *
-	 * @return void
-	 */
-	public function generate()
-	{
-// publish the path
-		if (empty($this->_sprites))
-		{
-			$this->findFiles();
-		}
-		if (!file_exists($this->getAssetFolder()))
-		{
-			mkdir($this->getAssetFolder());
-		}
-		$this->_generateImageData();
-		$this->_generateImage();
-		$this->_generateCss();
+		return $this->runtimePath . '/maslosoft-sprite';
 	}
 
 	/**
 	 * Generates the sprite from all the items in the MSprite::image array
 	 * and publishes the sprite to the published asset folder.
 	 *
-	 * @return void
 	 */
 	private function _generateImage()
 	{
@@ -251,9 +234,9 @@ class Generator
 		$dimensions = $this->_getDimensions();
 
 		$sizes = [];
-		foreach ($this->_images as $image)
+		foreach ($this->_sprites as $image)
 		{
-			$sizes[$image['width']] = $image['width'];
+			$sizes[$image->width] = $image->width;
 		}
 		$css = '';
 //		$css .= sprintf("[class^='%1\$s-']{background-image:url('sprite.png') !important;}\n", $this->cssIconClass);
@@ -278,10 +261,10 @@ class Generator
 			$top = $group['height'];
 			foreach ($group['images'] as $image)
 			{
-				$css .= '.' . $this->iconCssClass . '-' . $image['name'] . '{';
+				$css .= '.' . $this->iconCssClass . '-' . $image->name . '{';
 				$css .= 'background-position:' . -$group['offset'] . 'px ' . ($top - $group['height']) . 'px;';
 				$css .= '}' . "\n";
-				$top -= $image['height'];
+				$top -= $image->height;
 			}
 		}
 		$fp = $this->getAssetFolder() . DIRECTORY_SEPARATOR . 'sprite.css';
@@ -308,7 +291,7 @@ class Generator
 	 */
 	private function _getDimensions()
 	{
-		$imagesCount = count($this->_images);
+		$imagesCount = count($this->_sprites);
 		$splitFactor = floor(sqrt($imagesCount));
 		$split = ceil($imagesCount / $splitFactor);
 		$m = 0;
@@ -320,11 +303,11 @@ class Generator
 		$width = 0;
 		$doSplit = false;
 		$counter = 0;
-		foreach ($this->_images as $id => $image)
+		foreach ($this->_sprites as $id => $image)
 		{
 			$counter++;
-			$group['widths'][] = $image['width'];
-			$group['heights'][] = $image['height'];
+			$group['widths'][] = $image->width;
+			$group['heights'][] = $image->height;
 			$group['images'][] = $image;
 
 			$group['width'] = max($group['widths']);
@@ -348,7 +331,7 @@ class Generator
 				$doSplit = true;
 			}
 			// Ignore small image width differences
-			if ($nextImage && round($nextImage['width'] / 10) > round($image['width'] / 10))
+			if ($nextImage && round($nextImage['width'] / 10) > round($image->width / 10))
 			{
 //				var_dump("SPLIT: width diff: {$nextImage['width']} > {$image['width']}");
 				$doSplit = true;
@@ -393,58 +376,6 @@ class Generator
 	}
 
 	/**
-	 * create an array with specific individual image information in
-	 * populates @see MSprite::_images
-	 *
-	 * @return void
-	 */
-	private function _generateImageData()
-	{
-		foreach ($this->_sprites as $i => $s)
-		{
-			$imgPath = $s->getFullPath();
-			if (!file_exists($imgPath))
-			{
-				throw new UnexpectedValueException("The image file's path '$imgPath' does not exist.");
-			}
-			$info = getimagesize($imgPath);
-			if (!is_array($info))
-			{
-				throw new UnexpectedValueException("The image '$imgPath' is not a correct image format.");
-			}
-			$this->_images[$i]['path'] = $imgPath;
-			$this->_images[$i]['size'] = filesize($imgPath);
-			$this->_images[$i]['width'] = $info[0];
-			$this->_images[$i]['height'] = $info[1];
-			$this->_images[$i]['mime'] = $info['mime'];
-			$type = explode('/', $info['mime']);
-			$this->_images[$i]['type'] = $type[1];
-			// convert the relative path into the class name
-			// replace slashes with dashes and remove extension from file name
-			$p = pathinfo($imgPath);
-			$name = str_replace(['/', '\\', '_'], '-', $s->basePath);
-			/**
-			 * FIXME Below str_replace could ovverride file name if contains 'png/gif/jpg' in name
-			 */
-			$this->_images[$i]['name'] = strtolower(str_replace([$p['extension'], '.'], '', $name));
-		}
-
-		$widths = [];
-		$heights = [];
-		$sizes = [];
-		foreach ($this->_images as $key => $image)
-		{
-			$widths[$key] = (int) $image['width'];
-			$heights[$key] = (int) $image['height'];
-			$sizes[$key] = (int) $image['size'];
-		}
-
-		array_multisort(
-				$this->_images, SORT_ASC, SORT_NUMERIC, $widths, SORT_ASC, SORT_NUMERIC, $heights, SORT_ASC, SORT_NUMERIC, $sizes, SORT_ASC, SORT_NUMERIC
-		);
-	}
-
-	/**
 	 * returns the string file path to the icons folder that holds the individual images
 	 * that may be used to generate the sprite.
 	 *
@@ -468,18 +399,22 @@ class Generator
 	 * Finds all the image files within the MSprite::$imageFolderPath
 	 * and populates the sprites array
 	 *
-	 * @see MSprite::$sprites
 	 * @return void
 	 */
-	public function findFiles()
+	private function findFiles()
 	{
+		// Reset sprites
+		$this->_sprites = [];
+
+		// Image types
 		$types = [
 			'png',
 			'gif',
 			'jpeg',
 			'jpg'
 		];
-		// must be an array of folders, this is ensured in getIconPath function
+
+		// Must be an array of folders, this is ensured in getIconPath function
 		foreach ($this->getIconPath() as $path)
 		{
 			if (empty($path))
@@ -502,6 +437,9 @@ class Generator
 				$this->_sprites[] = new SpriteImage($path, $file);
 			}
 		}
+
+		// Sort results
+		ImageSorter::sort($this->_sprites);
 	}
 
 }

@@ -25,7 +25,8 @@
 		"symfony/console": "^2",
 		"maslosoft/sitcom": "*",
 		"symfony/finder": "^2.7",
-		"maslosoft/sigurd": "*"
+		"maslosoft/sigurd": "*",
+		"psr/log": "^1.0"
 	},
 	"require-dev": {
 		"maslosoft/sprite-test": "@dev"
