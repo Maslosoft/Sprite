@@ -42,6 +42,10 @@ EOT
 		(new Generator)->generate();
 	}
 
+	/**
+	 * @SlotFor(Command)
+	 * @param Command $signal
+	 */
 	public function reacOn(Command $signal)
 	{
 		$signal->add($this, 'sprite');
