@@ -257,13 +257,13 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 				$top += $image['height'];
 			}
 		}
-		$fp = $this->getAssetFolder() . DIRECTORY_SEPARATOR . 'sprite.png';
-		imagepng($sprite, $fp);
+		$dst = $this->getAssetFolder() . DIRECTORY_SEPARATOR . 'sprite.png';
+		imagepng($sprite, $dst);
 		imagedestroy($sprite);
 		if ($this->optimizer)
 		{
-			$src = $fp . '.tmp';
-			rename($fp, $src);
+			$src = $dst . '.tmp';
+			rename($dst, $src);
 			$this->logger->info(sprintf('Running PNG optimizer `%s`', $this->optimizer));
 			$cmd = strtr($this->optimizer, [
 				'{src}' => $src,
@@ -272,7 +272,12 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 			$output = [];
 			$result = 0;
 			exec($cmd, $output, $result);
-			$this->logger->debug(implode(PHP_EOL, $output));
+
+			// Log on failure
+			if ($result !== 0)
+			{
+				$this->logger->debug(implode(PHP_EOL, $output));
+			}
 		}
 	}
 

@@ -18,14 +18,19 @@ use Maslosoft\Sprite\Models\SpriteImage;
 class ImageSorter
 {
 
+	const SortWidth = 1;
+	const SortHeight = 2;
+	const SortSize = 4;
+
 	/**
 	 * Sort SpriteImage array based on:
 	 *   - Width
 	 *   - Height
 	 *   - File size
+	 * >> NOTE: It seems that best results are from sorting just by width
 	 * @param SpriteImage[] $sprites Array of sprite images
 	 */
-	public static function sort(& $sprites)
+	public static function sort(& $sprites, $mode = self::SortWidth)
 	{
 		$widths = [];
 		$heights = [];
@@ -37,12 +42,26 @@ class ImageSorter
 			$sizes[$key] = $image->size;
 		}
 
-		array_multisort(
-				$widths, SORT_ASC, SORT_NUMERIC, // Width
-				$heights, SORT_ASC, SORT_NUMERIC, // Height
-				$sizes, SORT_ASC, SORT_NUMERIC, // File Size
-				$sprites
-		);
+		$params = [];
+
+		// Setup sort modes based on flags
+		if ($mode & self::SortWidth)
+		{
+			array_push($params, $widths, SORT_ASC, SORT_NUMERIC);
+		}
+		if ($mode & self::SortHeight)
+		{
+			array_push($params, $heights, SORT_ASC, SORT_NUMERIC);
+		}
+		if ($mode & self::SortSize)
+		{
+			array_push($params, $sizes, SORT_ASC, SORT_NUMERIC);
+		}
+
+		// Finally push sprites array
+		$params[] = & $sprites;
+
+		call_user_func_array('array_multisort', $params);
 	}
 
 }

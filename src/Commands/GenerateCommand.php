@@ -26,9 +26,9 @@ class GenerateCommand extends ConsoleCommand
 	{
 		parent::configure();
 		$this->setName("generate");
-		$this->setDescription("Generate sprites");
+		$this->setDescription("Generate sprite imge and CSS");
 		$this->setHelp(<<<EOT
-The <info>generate</info> command emit's signal to gather icons and generate sprite image.
+The <info>generate</info> command will generate sprite image and CSS based on <info>sprite.yml</info> and emitted signal result.
 EOT
 		);
 	}
