@@ -2,8 +2,9 @@
 
 namespace Maslosoft\Sprite;
 
-use CLogger;
 use Closure;
+use Maslosoft\Cli\Shared\ConfigDetector;
+use Maslosoft\Cli\Shared\ConfigReader;
 use Maslosoft\Sprite\Helpers\ImageSorter;
 use Maslosoft\Sprite\Interfaces\GeneratorInterface;
 use Maslosoft\Sprite\Models\SpriteImage;
@@ -14,7 +15,6 @@ use RuntimeException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use UnexpectedValueException;
-use Yii;
 
 /**
  * MSprite class file.
@@ -66,6 +66,13 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 	public $runtimePath = '';
 
 	/**
+	 * Path relative to $runtimePath where sprites will be stored.
+	 * Cen be empty to store directly in runtimepath.
+	 * @var string
+	 */
+	public $spriteDir = '';
+
+	/**
 	 * Path to IDE stub with. Generated CSS will be stored here as well.
 	 * This allows css icon name autocomplete within IDE's like NetBeans or Eclipse.
 	 * @var string
@@ -86,18 +93,25 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 	public $iconCssClass = 'icon';
 
 	/**
-	 * Stores the path to the folder where the individual images that
+	 * Stores the paths to the folder where the individual images that
 	 * will be included in the spite are kept.
 	 * can be an array of imagefolder paths
-	 * @property mixed
+	 * @property mixed[]
 	 */
-	public $iconPaths;
+	public $paths;
 
 	/**
-	 * Name of executable for png optimizer, if emty, no optimizer will be used
+	 * Optimizer command, if empty, no optimizer will be used.
+	 * This have two placeholders:
+	 *   - `{src}` For source file
+	 *   - `{dst}` For destiation file
+	 * Example for pngcrush:
+	 * ```php
+	 * $optimizer = 'pngcrush {src} {dst}'
+	 * ```
 	 * @var string
 	 */
-	public $optimizer = 'pngcrush';
+	public $optimizer = 'pngcrush {src} {dst}';
 
 	/**
 	 * array of image paths relative to the MSprite::$imageFolderPath to include in the sprite, without a preceeding slash
@@ -114,6 +128,17 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 
 	public function __construct()
 	{
+		$cr = new ConfigReader('sprite');
+		foreach ($cr->toArray() as $name => $value)
+		{
+			$this->$name = $value;
+		}
+
+		if (empty($this->runtimePath))
+		{
+			$this->runtimePath = (new ConfigDetector)->getRuntimePath();
+		}
+
 		$this->logger = new NullLogger;
 	}
 
@@ -123,9 +148,24 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 	public function generate()
 	{
 		// Prepare folder
+		if (empty($this->runtimePath))
+		{
+			throw new UnexpectedValueException(sprintf('Property `runtimePath` of `%s` must be set and point to writeable directory', __CLASS__));
+		}
 		if (!file_exists($this->getAssetFolder()))
 		{
-			mkdir($this->getAssetFolder());
+			if (!is_writable($this->runtimePath))
+			{
+				throw new RuntimeException(sprintf('Runtime path `%s` is not writeable', $this->runtimePath));
+			}
+			if (!empty($this->spriteDir))
+			{
+				mkdir($this->getAssetFolder());
+				if (!is_writable($this->getAssetFolder()))
+				{
+					throw new RuntimeException(sprintf('Runtime path `%s` is not writeable', $this->getAssetFolder()));
+				}
+			}
 		}
 
 		$this->findFiles();
@@ -136,7 +176,7 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 	/**
 	 * Set PSR compliant logger
 	 * @param LoggerInterface $logger
-	 * @return \Maslosoft\Sprite\Generator
+	 * @return Generator
 	 */
 	public function setLogger(LoggerInterface $logger)
 	{
@@ -159,9 +199,21 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 	 *
 	 * @return string
 	 */
-	private function getAssetFolder()
+	public function getAssetFolder()
 	{
-		return $this->runtimePath . '/maslosoft-sprite';
+		if (empty($this->spriteDir))
+		{
+			return $this->_normalizePath($this->runtimePath);
+		}
+		$spriteDir = $this->_normalizePath($this->spriteDir);
+		$spriteDir = preg_replace('~^/~', '', $spriteDir);
+
+		return $this->_normalizePath($this->runtimePath . DIRECTORY_SEPARATOR . $spriteDir);
+	}
+
+	private function _normalizePath($path)
+	{
+		return preg_replace('~/$~', '', str_replace('\\', '/', $path));
 	}
 
 	/**
@@ -210,16 +262,17 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 		imagedestroy($sprite);
 		if ($this->optimizer)
 		{
-			if (!is_executable($this->optimizer))
-			{
-				return;
-			}
-			if (exec($this->optimizer))
-			{
-				$src = $fp . '.tmp';
-				rename($fp, $src);
-				exec(sprintf('%s %s %s', $this->optimizer, $src, $fp));
-			}
+			$src = $fp . '.tmp';
+			rename($fp, $src);
+			$this->logger->info(sprintf('Running PNG optimizer `%s`', $this->optimizer));
+			$cmd = strtr($this->optimizer, [
+				'{src}' => $src,
+				'{dst}' => $dst
+			]);
+			$output = [];
+			$result = 0;
+			exec($cmd, $output, $result);
+			$this->logger->debug(implode(PHP_EOL, $output));
 		}
 	}
 
@@ -270,16 +323,18 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 		$fp = $this->getAssetFolder() . DIRECTORY_SEPARATOR . 'sprite.css';
 		file_put_contents($fp, $css);
 
-		$pathForIDE = Yii::app()->basePath . '/../www/css/sprites-for-ide.css';
-		if (YII_DEBUG)
+		// Try to generate IDE stub file
+		if (!empty($this->ideStubPath))
 		{
+			$pathForIDE = $this->ideStubPath . '/sprites-for-ide.css';
 			if (is_writable($pathForIDE))
 			{
+				$this->logger->info(sprintf("Creating helper sprite for IDE in `%s`", $pathForIDE));
 				file_put_contents($pathForIDE, sprintf("/*THIS FILE IS ONLY FOR IDE AUTOCOMPLETE, GENERATED BY '%s'*/\n", __CLASS__) . $css);
 			}
 			else
 			{
-				Yii::log(sprintf("Helper sprite for IDE could not be generated, make sure path `%s` is writable", $pathForIDE), CLogger::LEVEL_WARNING);
+				$this->logger->warning(sprintf("Helper sprite for IDE could not be generated, make sure path `%s` is writable", $pathForIDE));
 			}
 		}
 	}
@@ -381,18 +436,18 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 	 *
 	 * @return string
 	 */
-	public function getIconPath()
+	private function getPaths()
 	{
-		(array) $this->iconPaths;
-		foreach ($this->iconPaths as & $path)
+		(array) $this->paths;
+		foreach ($this->paths as & $path)
 		{
 			if ($path instanceof Closure)
 			{
 				$path = $path();
 			}
-			$path = (string) $path;
+			$path = $this->_normalizePath((string) $path);
 		}
-		return $this->iconPaths;
+		return $this->paths;
 	}
 
 	/**
@@ -415,7 +470,7 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 		];
 
 		// Must be an array of folders, this is ensured in getIconPath function
-		foreach ($this->getIconPath() as $path)
+		foreach ($this->getPaths() as $path)
 		{
 			if (empty($path))
 			{

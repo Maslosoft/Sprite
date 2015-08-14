@@ -9,6 +9,7 @@
 namespace Maslosoft\Sprite\Commands;
 
 use Maslosoft\Sitcom\Command;
+use Maslosoft\Sprite\Generator;
 use Symfony\Component\Console\Command\Command as ConsoleCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -34,8 +35,7 @@ EOT
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-//		$zamm = new \Maslosoft\Zamm\Zamm();
-//		(new \Maslosoft\Zamm\File\Applier($input, $output))->apply();
+		(new Generator)->generate();
 	}
 
 	public function reacOn(Command $signal)

@@ -2,7 +2,7 @@
 
 /**
  * @licence For licence @see LICENCE.html
- * 
+ *
  * @copyright Maslosoft
  * @link http://maslosoft.com/
  */
@@ -13,6 +13,7 @@ use Maslosoft\Ilmatar\Components\Install\InstallersBase;
 
 /**
  * Sprite installer
+ * @deprecated since version 3
  * @SignalFor('Maslosoft\Ilmatar\Components\Install\Installer')
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */

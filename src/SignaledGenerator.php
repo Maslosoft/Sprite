@@ -32,10 +32,10 @@ class SignaledGenerator implements GeneratorInterface
 		{
 			foreach ($signal->paths as $path)
 			{
-				$generator->iconPaths[] = realpath($path);
+				$generator->paths[] = realpath($path);
 			}
 		}
-		$generator->iconPaths = array_unique($generator->iconPaths);
+		$generator->paths = array_unique($generator->paths);
 
 		$generator->generate();
 	}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8172095ba5cb9ee71a890fd8febace99",
+    "hash": "136829a9fd45b232f31dc7bed9d0e939",
     "packages": [
         {
             "name": "maslosoft/addendum",

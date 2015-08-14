@@ -26,7 +26,8 @@
 		"maslosoft/sitcom": "*",
 		"symfony/finder": "^2.7",
 		"maslosoft/sigurd": "*",
-		"psr/log": "^1.0"
+		"psr/log": "^1.0",
+		"maslosoft/cli-shared": "^0.0.5"
 	},
 	"require-dev": {
 		"maslosoft/sprite-test": "@dev"
