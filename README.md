@@ -1,4 +1,4 @@
-MSprite
+Maslosoft Sprite
 =======
 
 Icon sprite generator
@@ -6,19 +6,19 @@ Icon sprite generator
 Install with composer:
 
 ~~~
-composer require maslosoft/m-sprite dev-master
+composer require maslosoft/sprite
 ~~~
 
-Configure it:
+Yii Config:
 
 ~~~php
 	 // application components
 	 'components' => [
 	 ...
 		  'sprite' => [
-				'class' => 'vendor.maslosoft.m-sprite.MSprite',
-				'cssIconClass' => 'icon',
-				'imageFolderPath' => [
+				'class' => Maslosoft\Sprite\Generator::class,
+				'iconCssClass' => 'icon',
+				'paths' => [
 					 realpath(dirname(__FILE__) . '/../../www/css/icons')
 				]
 		  ],
