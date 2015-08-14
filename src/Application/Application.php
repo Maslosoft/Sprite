@@ -9,6 +9,7 @@
 namespace Maslosoft\Sprite\Application;
 
 use Maslosoft\Sprite\Commands\GenerateCommand;
+use Maslosoft\Sprite\Generator;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\Console\Command\Command;
 
@@ -36,7 +37,7 @@ LOGO;
 
 	public function __construct()
 	{
-		parent::__construct('Sprite', require __DIR__ . '/../version.php');
+		parent::__construct('Sprite', (new Generator)->getVersion());
 	}
 
 	public function getHelp()

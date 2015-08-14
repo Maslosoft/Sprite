@@ -1,3 +1,3 @@
 <?php
 
-return '';
+return '3-dev';

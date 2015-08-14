@@ -126,6 +126,12 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 	 */
 	private $_images = [];
 
+	/**
+	 * Version number holder
+	 * @var string
+	 */
+	private static $_version = null;
+
 	public function __construct()
 	{
 		$cr = new ConfigReader('sprite');
@@ -140,6 +146,19 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 		}
 
 		$this->logger = new NullLogger;
+	}
+
+	/**
+	 * Get current version number
+	 * @return string
+	 */
+	public function getVersion()
+	{
+		if (null === self::$_version)
+		{
+			self::$_version = require __DIR__ . '/version.php';
+		}
+		return self::$_version;
 	}
 
 	/**
