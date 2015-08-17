@@ -10,7 +10,7 @@ matrix:
 sudo: false
 install:
   - composer install --prefer-dist --dev
-  - pushd vendor/maslosoft/sprite-test && git reset --hard && git pull && popd
+  - composer update maslosoft/sprite-test
 after_script:
   - wget --no-check-certificate https://scrutinizer-ci.com/ocular.phar
   - bash -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then php ocular.phar code-coverage:upload --repository=g/Maslosoft/Sprite --revision=`git rev-parse HEAD` --format=php-clover ./tests/_output/coverage.clover; fi;'
