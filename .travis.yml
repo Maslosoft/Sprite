@@ -7,6 +7,7 @@ php:
 matrix:
   allow_failures:
     - php: nightly
+sudo: false
 install:
   - composer install --prefer-dist --dev
   - pushd vendor/maslosoft/sprite-test && git reset --hard && git pull && popd
