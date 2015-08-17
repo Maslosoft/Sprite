@@ -1,5 +1,7 @@
 runtimePath: runtime
 generatedPath: generated
 iconCssClass: icon
+# optimizer: pngcrush {src} {dst}
+optimizer: pngquant --ext .png --force {src}
 paths:
    - assets

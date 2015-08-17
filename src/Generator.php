@@ -291,7 +291,7 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 		imagedestroy($sprite);
 		if ($this->optimizer)
 		{
-			$src = $dst . '.tmp';
+			$src = str_replace('.png', '', $dst);
 			rename($dst, $src);
 			$this->logger->info(sprintf('Running PNG optimizer `%s`', $this->optimizer));
 			$cmd = strtr($this->optimizer, [
@@ -301,7 +301,7 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 			$output = [];
 			$result = 0;
 			exec($cmd, $output, $result);
-
+			unlink($src);
 			// Log on failure
 			if ($result !== 0)
 			{
