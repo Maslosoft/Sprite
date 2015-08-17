@@ -49,18 +49,4 @@ LOGO;
 		return self::Logo . parent::getHelp();
 	}
 
-	/**
-	 * Gets the default commands that should always be available.
-	 *
-	 * @return Command[] An array of default Command instances
-	 */
-	public function getDefaultCommands()
-	{
-		$commands = parent::getDefaultCommands();
-
-		$commands[] = new GenerateCommand();
-
-		return $commands;
-	}
-
 }

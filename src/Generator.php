@@ -218,8 +218,16 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 	public function reset()
 	{
 		$folder = $this->getAssetFolder();
-		@unlink(sprintf('%s/sprite.css', $folder));
-		@unlink(sprintf('%s/sprite.png', $folder));
+		$cssFile = sprintf('%s/sprite.css', $folder);
+		$imgFile = sprintf('%s/sprite.png', $folder);
+		if (file_exists($cssFile))
+		{
+			unlink($cssFile);
+		}
+		if (file_exists($imgFile))
+		{
+			unlink($imgFile);
+		}
 	}
 
 	/**
@@ -262,6 +270,7 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 			$top = 0;
 			foreach ($group['images'] as $image)
 			{
+				$img = '';
 				switch ($image['type'])
 				{
 					case 'png':
@@ -277,7 +286,7 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 						continue;
 						break;
 				}
-				if (!$img)
+				if (empty($img))
 				{
 					continue;
 				}
@@ -325,8 +334,8 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 			$sizes[$image->width] = $image->width;
 		}
 		$css = '';
-//		$css .= sprintf("[class^='%1\$s-']{background-image:url('sprite.png') !important;}\n", $this->cssIconClass);
-// for 16x16 icons
+
+		// CSS template
 		$template = '[class^="%1$s-%2$d"], [class*=" %1$s-%2$d"] {
 			display:inline-block;
 			overflow:hidden;
@@ -335,7 +344,6 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 			width:%2$dpx;
 			height:%2$dpx;
 			background-repeat:no-repeat;' .
-//			'}' .
 				'background-image:url(sprite.png) !important;}' .
 				"\n";
 		foreach ($sizes as $size)
@@ -388,9 +396,9 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 		$totalHeight = 0;
 		$totalWidth = 0;
 		$height = 0;
-		$width = 0;
 		$doSplit = false;
 		$counter = 0;
+		$group = [];
 		foreach ($this->_sprites as $id => $image)
 		{
 			$counter++;
@@ -408,31 +416,35 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 			{
 				$nextImage = [];
 			}
+
+			// Split because it's lat image
 			if ($counter == $imagesCount)
 			{
-//				var_dump("SPLIT: last");
 				$doSplit = true;
 			}
+
+			// Split because image number is above split treshold
 			if ($i > $split)
 			{
-//				var_dump("SPLIT: treshhold");
 				$doSplit = true;
 			}
+
 			// Ignore small image width differences
 			if ($nextImage && round($nextImage['width'] / 10) > round($image->width / 10))
 			{
-//				var_dump("SPLIT: width diff: {$nextImage['width']} > {$image['width']}");
 				$doSplit = true;
 			}
+
+			// Split because height is different
 			if ($height && $group['height'] >= $height)
 			{
-//				var_dump("SPLIT: height diff: {$group['height']} >= $height");
 				$doSplit = true;
 			}
+
+			// Do split (create new column of images) if nessesary
 			if ($doSplit)
 			{
-				$width = 0;
-// Ignore first small images if there are not enough of them
+				// Ignore first small images if there are not enough of them
 				if (count($group['heights']) > $split || $height)
 				{
 					$height = max($height, $group['height']);
