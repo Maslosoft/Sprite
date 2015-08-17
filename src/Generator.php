@@ -15,6 +15,8 @@ namespace Maslosoft\Sprite;
 use Closure;
 use Maslosoft\Cli\Shared\ConfigDetector;
 use Maslosoft\Cli\Shared\ConfigReader;
+use Maslosoft\Sprite\Generators\CssGenerator;
+use Maslosoft\Sprite\Generators\ImgGenerator;
 use Maslosoft\Sprite\Helpers\ImageSorter;
 use Maslosoft\Sprite\Interfaces\GeneratorInterface;
 use Maslosoft\Sprite\Models\SpriteImage;
@@ -122,6 +124,18 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 	 * @var string
 	 */
 	public $optimizer = 'pngcrush {src} {dst}';
+
+	/**
+	 * Css generator configuration
+	 * @var string|array
+	 */
+	public $cssGenerator = CssGenerator::class;
+
+	/**
+	 * Image generator configuration
+	 * @var string|array
+	 */
+	public $imgGenerator = ImgGenerator::class;
 
 	/**
 	 * array of image paths relative to the MSprite::$imageFolderPath to include in the sprite, without a preceeding slash
@@ -335,7 +349,7 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 		}
 		$css = '';
 
-		// CSS template
+		// CSS template for sizes
 		$template = '[class^="%1$s-%2$d"], [class*=" %1$s-%2$d"] {
 			display:inline-block;
 			overflow:hidden;
@@ -350,6 +364,8 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 		{
 			$css .= sprintf($template, $this->iconCssClass, $size);
 		}
+
+		// Generate css for each image
 		foreach ($dimensions['groups'] as $group)
 		{
 			$top = $group['height'];
@@ -361,6 +377,8 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 				$top -= $image->height;
 			}
 		}
+
+		// Write css to disk
 		$fp = $this->getAssetFolder() . DIRECTORY_SEPARATOR . 'sprite.css';
 		file_put_contents($fp, $css);
 
