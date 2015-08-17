@@ -77,7 +77,7 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 
 	/**
 	 * Path relative to $runtimePath where sprites will be stored.
-	 * Cen be empty to store directly in runtimepath.
+	 * Can be empty to store directly in runtimepath.
 	 * @var string
 	 */
 	public $spriteDir = '';
@@ -149,7 +149,6 @@ class Generator implements GeneratorInterface, LoggerAwareInterface
 		{
 			$this->$name = $value;
 		}
-
 		if (empty($this->runtimePath))
 		{
 			$this->runtimePath = (new ConfigDetector)->getRuntimePath();
