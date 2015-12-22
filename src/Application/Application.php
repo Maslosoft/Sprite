@@ -12,10 +12,8 @@
 
 namespace Maslosoft\Sprite\Application;
 
-use Maslosoft\Sprite\Commands\GenerateCommand;
 use Maslosoft\Sprite\Generator;
 use Symfony\Component\Console\Application as ConsoleApplication;
-use Symfony\Component\Console\Command\Command;
 
 /**
  * Application

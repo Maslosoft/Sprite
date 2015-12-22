@@ -12,14 +12,13 @@
 
 namespace Maslosoft\Sprite\Interfaces;
 
-use Maslosoft\Sprite\Models\Collection;
+use CollectionAwareInterface;
 
 /**
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface SpriteGeneratorInterface extends GeneratorInterface
+interface SpriteGeneratorInterface extends GeneratorInterface, CollectionAwareInterface
 {
 
-	public function setCollection(Collection $collection);
 }

@@ -24,8 +24,59 @@ class Sprite implements SignalInterface
 {
 
 	/**
-	 * Icon prefix. This is important parameter, as it is used by CSS as selector.
+	 * If set, it will **override** this class with same class name,
+	 * but containing formatted constants with icon names.
+	 *
+	 * This parameter combined with `iconPrefix` can be used to select
+	 * icons based on class constants, with IDE autocomplete support, and shorter names.
+	 *
+	 * Possible example usage, assume class name is `Icon` or some namespaced
+	 * name, let's say `Maslosoft\Module\Icon` and is imported here:
+	 * ```php
+	 * Icon::Folder; // icon-folder
+	 * ```
+	 *
+	 * With `iconPrefix` constant name will be the same, however CSS name will be prefixed:
+	 * ```php
+	 * Icon::Folder; // icon-module-folder
+	 * ```
+	 * @var string
+	 */
+	public $constantsClass = '';
+
+	/**
+	 * Define any valid PHP callback to customize transformation constant names.
+	 * By default they are camelized, ie:
+	 * ```
+	 * document-folder
+	 * ```
+	 * Will become:
+	 * ```
+	 * DocumentFolder
+	 * ```
+	 *
+	 * Function accepts two parameter, this signal and css class name without prefixes.
+	 *
+	 * Example function:
+	 * ```php
+	 * $converter = function(Maslosoft\Sprite\Signals\Sprite $signal, $name)
+	 * {
+	 * 			// Basic camelize function
+	 * 		return lcfirst(str_replace('-', '', ucwords($name, '-')));
+	 * };
+	 * ```
+	 * @var callback
+	 */
+	public $constantsConverter = null;
+
+	/**
+	 * Icon prefix. It is used by CSS as selector.
 	 * This can be usefull to create icon namespace for application module.
+	 * Example icon CSS class name without prefix:
+	 * ```
+	 * 		icon-folder
+	 * ```
+	 * With prefix it will append this prefix after `icon` part
 	 * @var string
 	 */
 	public $iconPrefix = '';
