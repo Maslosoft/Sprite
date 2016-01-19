@@ -6,6 +6,8 @@
  * and open the template in the editor.
  */
 
+namespace Maslosoft\Sprite\Interfaces;
+
 use Maslosoft\Sprite\Models\Collection;
 
 /**

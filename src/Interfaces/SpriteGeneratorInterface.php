@@ -12,8 +12,6 @@
 
 namespace Maslosoft\Sprite\Interfaces;
 
-use CollectionAwareInterface;
-
 /**
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
