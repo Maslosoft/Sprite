@@ -24,11 +24,11 @@
     },
 	"require": {
 		"maslosoft/signals": "*",
-		"symfony/console": "^2",
+		"symfony/console": "^3",
 		"maslosoft/sitcom": "*",
-		"symfony/finder": "^2",
+		"symfony/finder": "^3",
 		"maslosoft/sigurd": "*",
-		"psr/log": "^1.0",
+		"psr/log": "^1",
 		"maslosoft/cli-shared": "*"
 	},
 	"require-dev": {
