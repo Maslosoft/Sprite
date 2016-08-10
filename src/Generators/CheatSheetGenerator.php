@@ -50,6 +50,9 @@ class CheatSheetGenerator implements GeneratorInterface, CollectionAwareInterfac
 		{
 			$sprites[] = new CheatSheetSprite($sprite);
 		}
+
+		uasort($sprites, [$this, 'compare']);
+
 		$table = $this->mv->render('cheat-sheet.latte', ['sprites' => $sprites], true);
 
 		// Generate raw table
@@ -66,6 +69,15 @@ class CheatSheetGenerator implements GeneratorInterface, CollectionAwareInterfac
 		$index = $this->mv->render('cheat-sheet-index.latte', $params, true);
 		$indexFilename = sprintf('%s/%s-index.html', $config->generatedPath, $config->basename);
 		file_put_contents($indexFilename, $index);
+	}
+
+	public function compare(CheatSheetSprite $a, CheatSheetSprite $b)
+	{
+		if ($a->cssClass == $b->cssClass)
+		{
+			return 0;
+		}
+		return ($a->cssClass < $b->cssClass) ? -1 : 1;
 	}
 
 }

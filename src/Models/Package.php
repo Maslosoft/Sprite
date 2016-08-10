@@ -132,16 +132,7 @@ class Package implements SpritePackageInterface
 	 * This will result in icons with two prefixes of `16` and `32`.
 	 * This is usefull for icon sizing. So when using icon, one would know
 	 * it's size just by the icon name.
-	 *
-	 * Path can also be specified as anonymous function which return valid path:
-	 * ```php
-	 * $paths = [
-	 * 		'/var/www/some/application/assets/',
-	 * 			function(){
-	 * 				return (new Vendor\Cms\AssetManager)->getIconsPath();
-	 * 			}
-	 * ]
-	 * ```
+	 * 
 	 * @var string[]
 	 */
 	public $paths = '';

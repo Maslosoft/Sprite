@@ -8,11 +8,8 @@
 
 namespace Maslosoft\Sprite;
 
+use Maslosoft\Cli\Shared\ConfigReader;
 use Maslosoft\EmbeDi\EmbeDi;
-use Maslosoft\Sprite\Generators\CheatSheetGenerator;
-use Maslosoft\Sprite\Generators\ConstantsGenerator;
-use Maslosoft\Sprite\Generators\CssGenerator;
-use Maslosoft\Sprite\Generators\ImgGenerator;
 use Maslosoft\Sprite\Helpers\ImageFinder;
 use Maslosoft\Sprite\Interfaces\CollectionAwareInterface;
 use Maslosoft\Sprite\Interfaces\ConfigurationAwareInterface;
@@ -20,20 +17,40 @@ use Maslosoft\Sprite\Interfaces\GeneratorInterface;
 use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 use Maslosoft\Sprite\Models\Collection;
 use Maslosoft\Sprite\Models\Configuration;
+use Maslosoft\Sprite\Traits\LoggerAwareTrait;
+use Psr\Log\LoggerAwareInterface;
 
 /**
  * CompoundGenerator
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class CompoundGenerator implements GeneratorInterface
+class CompoundGenerator extends Configuration implements GeneratorInterface, LoggerAwareInterface
 {
+
+	use LoggerAwareTrait;
+
+	const DefaultInstanceId = 'sprite';
 
 	/**
 	 * Sprite packages
 	 * @var SpritePackageInterface[]
 	 */
 	private $packages = [];
+
+	public function __construct($configName = self::DefaultInstanceId)
+	{
+
+		$config = new ConfigReader($configName);
+		$this->di = EmbeDi::fly($configName);
+		$this->di->apply($config->toArray(), $this);
+		$this->di->configure($this);
+		if (is_string($this->logger))
+		{
+			$loggerClass = $this->logger;
+			$this->logger = new $loggerClass;
+		}
+	}
 
 	public function add(SpritePackageInterface $package)
 	{
@@ -42,11 +59,10 @@ class CompoundGenerator implements GeneratorInterface
 
 	public function generate()
 	{
-		$config = new Configuration();
 		$di = new EmbeDi();
 		$sprites = (new ImageFinder())->find($this->packages);
 		$collection = new Collection($sprites);
-		foreach ($config->generators as $generatorConfig)
+		foreach ($this->generators as $generatorConfig)
 		{
 			$generator = $di->apply($generatorConfig);
 			/* @var $generator GeneratorInterface */
@@ -56,7 +72,11 @@ class CompoundGenerator implements GeneratorInterface
 			}
 			if ($generator instanceof ConfigurationAwareInterface)
 			{
-				$generator->setConfig($config);
+				$generator->setConfig($this);
+			}
+			if ($generator instanceof LoggerAwareInterface)
+			{
+				$generator->setLogger($this->getLogger());
 			}
 			$generator->generate();
 		}

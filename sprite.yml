@@ -14,18 +14,23 @@ basename: sprite
 # This should be something distinctive
 # or might match many CSS elements.
 iconCssClass: icon
-# optimizer: pngcrush {src} {dst}
+#optimizer: pngcrush {src} {dst}
 optimizer: pngquant --ext .png --force {src}
 # Generator classes used to generate files
+# NOTE: In some cases (ie. OptimizedGenerator) order of generators *is* important
 generators:
-  - Maslosoft\Sprite\Generators\CssGenerator::class
-  - Maslosoft\Sprite\Generators\ImgGenerator::class
-  - Maslosoft\Sprite\Generators\CheatSheetGenerator::class
-  - Maslosoft\Sprite\Generators\ConstantsGenerator::class
+  - Maslosoft\Sprite\Generators\CssGenerator
+  - Maslosoft\Sprite\Generators\ImgGenerator
+  - Maslosoft\Sprite\Generators\CheatSheetGenerator
+  - Maslosoft\Sprite\Generators\ConstantsGenerator
+  - Maslosoft\Sprite\Generators\OptimizedGenerator
+# PSR compliant logger
+logger: Psr\Log\NullLogger
 
 # Configuration options below are used only when running as local generator
 # These are same as one package config
 
 # Paths to scan for icons
+# See also class Maslosoft\Sprite\Model\Package
 paths:
   - assets

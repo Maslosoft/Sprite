@@ -2,43 +2,42 @@
 Cheat sheet of all icons
 *}
 
-<table>
+<table class="table table-striped">
 	<tr>
-		<th>
+		<th style="width:1%">
 			Image
 		</th>
-		<th>
+		<th style="width:1%">
 			Sprite
 		</th>
 		<th>
-			CSS class name
+			CSS class names
 		</th>
 		<th>
-			Class constant name
+			Class constant names
 		</th>
 	</tr>
 	{foreach $sprites as $sprite}
 	<tr>
 		<td>
 			<img src="{$sprite->image|dataStream}"/>
-			{$sprite->image}
 		</td>
 		<td>
 			<i class="{$sprite->cssClass}"></i>
 		</td>
 		<td>
 			{* Might be available on different class names *}
-			<ul>
+			<ul class="list-unstyled">
 			{foreach $sprite->cssClasses as $cssClass}
-				<li><input value="{$cssClass}" type="text"/></li>
+				<li><input style="width:100%;" value="{$cssClass}" type="text" onclick="this.setSelectionRange(0, this.value.length);"/></li>
 			{/foreach}
 			</ul>
 		</td>
 		<td>
 			{* Might be available as different class constants *}
-			<ul>
+			<ul class="list-unstyled">
 			{foreach $sprite->constants as $constant}
-				<li><input value="{$constant}" type="text"/></li>
+				<li><input style="width:100%;" value="{$constant}" type="text"/></li>
 			{/foreach}
 			</ul>
 		</td>
