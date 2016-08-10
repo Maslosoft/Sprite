@@ -52,17 +52,6 @@ class FolderChecker
 				throw new RuntimeException(sprintf('Base name contains path `%s`, which is not writeable', $pathname));
 			}
 		}
-//		if (!file_exists($config->getAssetFolder()))
-//		{
-//			if (!empty($config->spriteDir))
-//			{
-//				mkdir($config->getAssetFolder());
-//				if (!is_writable($config->getAssetFolder()))
-//				{
-//					throw new RuntimeException(sprintf('Runtime path `%s` is not writeable', $config->getAssetFolder()));
-//				}
-//			}
-//		}
 	}
 
 }
