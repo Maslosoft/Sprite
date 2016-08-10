@@ -88,6 +88,7 @@ class Collection
 		$counter = 0;
 		$column = [];
 		$columns = [];
+		$groups = [];
 		// Integer indexed sprites
 		$images = array_values($this->sprites);
 		foreach ($this->sprites as $id => $image)
@@ -146,8 +147,8 @@ class Collection
 				unset($column['heights']);
 				$group = new Group();
 				$group->sprites = $column['images'];
-				$group->width = $column['width'];
-				$group->height = $column['height'];
+				$group->width = (int) $column['width'];
+				$group->height = (int) $column['height'];
 				$groups[$m] = $group;
 				$columns[$m] = $column;
 				$i = 0;
