@@ -16,6 +16,8 @@ namespace Maslosoft\Sprite;
 use Maslosoft\Sprite\Interfaces\GeneratorInterface;
 use Maslosoft\Sprite\Models\Package;
 use Maslosoft\Sprite\Traits\VersionTrait;
+use ReflectionObject;
+use ReflectionProperty;
 
 /**
  * Generator
@@ -30,8 +32,19 @@ class Generator implements GeneratorInterface
 	public function generate()
 	{
 		$package = new Package();
-		$package->paths[] = 'assets';
+
 		$generator = new CompoundGenerator();
+
+		// Copy config to package, as CompoundGenerator should be configured already via:
+		// - sprite.yml
+		// - any EmbeDi config source
+		$info = new ReflectionObject($package);
+		foreach ($info->getProperties(ReflectionProperty::IS_PUBLIC) as $property)
+		{
+			$name = $property->name;
+			$package->$name = $generator->$name;
+		}
+
 		$generator->add($package);
 		$generator->generate();
 	}

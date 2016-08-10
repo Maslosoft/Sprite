@@ -52,4 +52,28 @@ class Namer
 		return sprintf('icon-%s', $name);
 	}
 
+	public static function nameConstant(SpritePackageInterface $package, SpriteImage $sprite)
+	{
+		$converter = $package->getConstantsConverter();
+		if (!empty($converter))
+		{
+			if (!is_callable($converter, true))
+			{
+				throw new RuntimeException('Variable of type `%s` is not callable', get_type($converter));
+			}
+			$params = [
+				$package,
+				$sprite
+			];
+			$name = call_user_func_array($converter, $params);
+		}
+		else
+		{
+			$name = $sprite->name;
+		}
+		// Last resort replacements
+		$name = preg_replace('~^[0-9]+~', '', $name);
+		return str_replace('-', '_', $name);
+	}
+
 }

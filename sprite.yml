@@ -34,3 +34,6 @@ logger: Psr\Log\NullLogger
 # See also class Maslosoft\Sprite\Model\Package
 paths:
   - assets
+# This is default, really should use some other class
+# Class Name `I` is proposed similarly as `i` tag
+constantsClass: Maslosoft\Sprite\Icon\I

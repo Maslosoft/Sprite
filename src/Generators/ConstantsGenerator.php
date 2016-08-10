@@ -13,6 +13,8 @@
 
 namespace Maslosoft\Sprite\Generators;
 
+use Maslosoft\MiniView\MiniView;
+use Maslosoft\Sprite\Helpers\ConstantsFactory;
 use Maslosoft\Sprite\Interfaces\CollectionAwareInterface;
 use Maslosoft\Sprite\Interfaces\GeneratorInterface;
 use Maslosoft\Sprite\Traits\CollectionAwareTrait;
@@ -27,9 +29,27 @@ class ConstantsGenerator implements GeneratorInterface, CollectionAwareInterface
 
 	use CollectionAwareTrait;
 
+	/**
+	 * View instance
+	 * @var MiniView
+	 */
+	private $mv = null;
+
+	public function __construct()
+	{
+		$this->mv = new MiniView($this);
+	}
+
 	public function generate()
 	{
-
+		$collection = $this->getCollection();
+		$sprites = $collection->getSprites();
+		$classes = ConstantsFactory::create($sprites);
+		foreach ($classes as $class)
+		{
+			$definition = $this->mv->render('constants-class.latte', ['class' => $class], true);
+			file_put_contents($class->getPath(), $definition);
+		}
 	}
 
 }
