@@ -54,6 +54,12 @@ class CheatSheetSprite
 	 */
 	public $shortConstants = [];
 
+	/**
+	 * Whether has constants
+	 * @var bool
+	 */
+	public $hasConstants = false;
+
 	public function __construct(SpriteImage $sprite)
 	{
 		foreach ($sprite->packages as $package)
@@ -71,6 +77,7 @@ class CheatSheetSprite
 				$name = $const->name;
 				$this->constants[] = sprintf('%s\\%s::%s', $class->ns, $class->name, $name);
 				$this->shortConstants[] = sprintf('%s::%s', $class->name, $name);
+				$this->hasConstants = true;
 			}
 		}
 	}

@@ -50,15 +50,21 @@ class CheatSheetGenerator implements GeneratorInterface, CollectionAwareInterfac
 		$config = $this->getConfig();
 		FolderChecker::check($config);
 
+		$hasConsts = false;
 		$sprites = [];
 		foreach ($collection->getSprites() as $sprite)
 		{
-			$sprites[] = new CheatSheetSprite($sprite);
+			$cSprite = new CheatSheetSprite($sprite);
+			$sprites[] = $cSprite;
+			if (!$hasConsts && $cSprite->hasConstants)
+			{
+				$hasConsts = true;
+			}
 		}
 
 		uasort($sprites, [$this, 'compare']);
 
-		$table = $this->mv->render('cheat-sheet.latte', ['sprites' => $sprites], true);
+		$table = $this->mv->render('cheat-sheet.latte', ['sprites' => $sprites, 'hasConsts' => $hasConsts], true);
 
 		// Generate raw table
 		$filename = sprintf('%s/%s-table.html', $config->generatedPath, $config->basename);
@@ -69,7 +75,8 @@ class CheatSheetGenerator implements GeneratorInterface, CollectionAwareInterfac
 			'table' => $table,
 			// Use base name, as cheet sheet is in same directory
 			// and base name in config might point to sub-folder
-			'css' => sprintf('%s.css', basename($config->basename))
+			'css' => sprintf('%s.css', basename($config->basename)),
+			'hasConsts' => $hasConsts
 		];
 		$index = $this->mv->render('cheat-sheet-index.latte', $params, true);
 		$indexFilename = sprintf('%s/%s-index.html', $config->generatedPath, $config->basename);

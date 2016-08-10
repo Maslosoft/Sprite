@@ -606,15 +606,17 @@
 		<div class="container">
 			<h1>Generated Sprites Cheat Sheet</h1>
 			<input type="search" class="light-table-filter form-control" data-table="table" placeholder="Filter" />
+			{if $hasConsts}
 			<div class="checkbox">
 				<label>
 					<input type="checkbox" checked="true" class="consts-filter" data-table="table" />
 					Short constant names
 				</label>
 			</div>
+			{/if}
 			<div>
 				<p>
-					<em>Clicking on class or constant name will copy value to clipboard (browser dependent)</em>
+					<em>Clicking on class {if $hasConsts}or constant {/if}name will copy value to clipboard (browser dependent)</em>
 				</p>
 			</div>
 			{$table|noescape}

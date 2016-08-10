@@ -16,9 +16,11 @@ to allow displaying anywhere.
 			<th>
 				CSS class names
 			</th>
+			{if $hasConsts}
 			<th>
 				Class constant names
 			</th>
+			{/if}
 		</tr>
 	</thead>
 	<tbody>
@@ -38,6 +40,7 @@ to allow displaying anywhere.
 				{/foreach}
 				</ul>
 			</td>
+			{if $hasConsts}
 			<td>
 				{* Might be available as different class constants *}
 				<ul class="list-unstyled const-short">
@@ -55,6 +58,7 @@ to allow displaying anywhere.
 				{/foreach}
 				</ul>
 			</td>
+			{/if}
 		</tr>
 	{/foreach}
 	</tbody>
