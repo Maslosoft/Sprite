@@ -91,7 +91,7 @@ class Collection
 		$groups = [];
 		// Integer indexed sprites
 		$images = array_values($this->sprites);
-		foreach ($this->sprites as $id => $image)
+		foreach ($images as $id => $image)
 		{
 			/* @var $image SpriteImage */
 			/* @var $nextImage SpriteImage */
