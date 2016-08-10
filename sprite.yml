@@ -1,7 +1,25 @@
+# Common generators configuration
+
+# Path for temporary files
 runtimePath: runtime
+# Path for result sprite files
 generatedPath: generated
+# CSS class name prefix used for all icons.
+# This should be something distinctive
+# or might match many CSS elements.
 iconCssClass: icon
 # optimizer: pngcrush {src} {dst}
 optimizer: pngquant --ext .png --force {src}
+# Generator classes used to generate files
+generators:
+  - Maslosoft\Sprite\Generators\
+  - Maslosoft\Sprite\Generators\
+  - Maslosoft\Sprite\Generators\
+  - Maslosoft\Sprite\Generators\
+  
+# Configuration options below are used only when running as local generator
+# These are same as one package config
+
+# Paths to scan for icons
 paths:
-   - assets
+  - assets

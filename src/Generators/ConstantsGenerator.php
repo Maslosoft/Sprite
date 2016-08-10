@@ -8,12 +8,23 @@
 
 namespace Maslosoft\Sprite\Generators;
 
+use Maslosoft\Sprite\Interfaces\CollectionAwareInterface;
+use Maslosoft\Sprite\Interfaces\GeneratorInterface;
+use Maslosoft\Sprite\Traits\CollectionAwareTrait;
+
 /**
  * ConstantsGenerator
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class ConstantsGenerator
+class ConstantsGenerator implements GeneratorInterface, CollectionAwareInterface
 {
-	
+
+	use CollectionAwareTrait;
+
+	public function generate()
+	{
+
+	}
+
 }

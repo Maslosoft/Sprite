@@ -10,18 +10,16 @@
  *
  */
 
-namespace Maslosoft\Sprite\Signals;
+namespace Maslosoft\Sprite\Models;
 
-use Maslosoft\Signals\Interfaces\SignalInterface;
 use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 
 /**
- * Respond to this signal to instruct sprite
- * generator where are icons located and how the should be named.
+ * Sprite package
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class Sprite implements SignalInterface, SpritePackageInterface
+class Package implements SpritePackageInterface
 {
 
 	/**
@@ -56,14 +54,14 @@ class Sprite implements SignalInterface, SpritePackageInterface
 	 * DocumentFolder
 	 * ```
 	 *
-	 * Function accepts two parameter, this signal and css class name without prefixes.
+	 * Function accepts two parameter, package interface instance and sprite object.
 	 *
 	 * Example function:
 	 * ```php
-	 * $converter = function(Maslosoft\Sprite\Signals\Sprite $signal, $name)
+	 * $converter = function(SpritePackageInterface $signal, SpriteImage $sprite)
 	 * {
 	 * 			// Basic camelize function
-	 * 		return lcfirst(str_replace('-', '', ucwords($name, '-')));
+	 * 		return lcfirst(str_replace('-', '', ucwords($sprite->name, '-')));
 	 * };
 	 * ```
 	 * @var callback

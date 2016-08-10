@@ -23,16 +23,16 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class GenerateCommand extends ConsoleCommand
+class SignalCommand extends ConsoleCommand
 {
 
 	protected function configure()
 	{
 		parent::configure();
-		$this->setName("local");
-		$this->setDescription("Generate sprite image, CSS and possibly other files locally");
+		$this->setName("generate");
+		$this->setDescription("Generate sprite image, CSS and possibly other files based on emitted signal");
 		$this->setHelp(<<<EOT
-The <info>generate</info> command will generate sprite image and CSS based on local <info>sprite.yml</info> or any EmbeDi configuration.
+The <info>generate</info> command will generate sprite image and CSS based local on <info>sprite.yml</info> possible EmbeDi configuration sources and emitted signal result.
 
 This might also generate helper files such as:
 	- HTML Cheat Sheet with all generated icons

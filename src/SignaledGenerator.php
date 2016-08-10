@@ -14,7 +14,7 @@ namespace Maslosoft\Sprite;
 
 use Maslosoft\Signals\Signal;
 use Maslosoft\Sprite\Interfaces\GeneratorInterface;
-use Maslosoft\Sprite\Signals\Sprite;
+use Maslosoft\Sprite\Signals\SpritePackage;
 
 /**
  * SignaledGenerator
@@ -26,15 +26,19 @@ class SignaledGenerator implements GeneratorInterface
 
 	public function generate()
 	{
-		// Gather paths
-		$signals = (new Signal)->emit(new Sprite);
-
+		// Gather package signals
+		$signals = (new Signal)->emit(new SpritePackage());
 
 		$generator = new CompoundGenerator();
 
+		// Add all packages
 		foreach ($signals as $signal)
 		{
-			$generator->add($signal);
+			/* @var $signal SpritePackage */
+			foreach ($signal->getPackages() as $package)
+			{
+				$generator->add($package);
+			}
 		}
 
 		$generator->generate();

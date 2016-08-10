@@ -10,6 +10,7 @@ namespace Maslosoft\Sprite\Generators;
 
 use Maslosoft\Sprite\Interfaces\SpriteGeneratorInterface;
 use Maslosoft\Sprite\Models\Collection;
+use Maslosoft\Sprite\Traits\CollectionAwareTrait;
 
 /**
  * ImgGenerator
@@ -19,14 +20,11 @@ use Maslosoft\Sprite\Models\Collection;
 class ImgGenerator implements SpriteGeneratorInterface
 {
 
+	use CollectionAwareTrait;
+
 	public function generate()
 	{
-
-	}
-
-	public function setCollection(Collection $collection)
-	{
-
+		
 	}
 
 }

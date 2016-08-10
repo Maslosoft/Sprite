@@ -20,6 +20,10 @@ namespace Maslosoft\Sprite\Models;
 class Group
 {
 
+	/**
+	 * Images
+	 * @var SpriteImage[]
+	 */
 	public $sprites;
 
 	/**
@@ -33,5 +37,11 @@ class Group
 	 * @var int
 	 */
 	public $height = 0;
+
+	/**
+	 * Offset from left side of image
+	 * @var int
+	 */
+	public $offset = 0;
 
 }
