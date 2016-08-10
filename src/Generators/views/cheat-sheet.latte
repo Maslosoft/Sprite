@@ -14,4 +14,27 @@ Cheat sheet of all icons
 			Class constant name
 		</th>
 	</tr>
+	{foreach $sprites as $sprite}
+	<tr>
+		<th>
+			<i class="{$sprite->cssClass}"></i>
+		</th>
+		<th>
+			{* Might be available on different class names *}
+			<ul>
+			{foreach $sprite->cssClasses as $cssClass}
+				<li><input value="{$cssClass}" type="text"/></li>
+			{/foreach}
+			</ul>
+		</th>
+		<th>
+			{* Might be available as different class constants *}
+			<ul>
+			{foreach $sprite->constants as $constant}
+				<li><input value="{$constant}" type="text"/></li>
+			{/foreach}
+			</ul>
+		</th>
+	</tr>
+	{/foreach}
 </table>
