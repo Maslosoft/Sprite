@@ -13,6 +13,7 @@
 
 namespace Maslosoft\Sprite\Models;
 
+use Maslosoft\Sprite\Helpers\ConstantsFactory;
 use Maslosoft\Sprite\Helpers\Namer;
 
 /**
@@ -47,6 +48,12 @@ class CheatSheetSprite
 	 */
 	public $constants = [];
 
+	/**
+	 * All class constants at which sprite is available - short notation
+	 * @var string[]
+	 */
+	public $shortConstants = [];
+
 	public function __construct(SpriteImage $sprite)
 	{
 		foreach ($sprite->packages as $package)
@@ -56,6 +63,16 @@ class CheatSheetSprite
 		$this->cssClass = $this->cssClasses[0];
 
 		$this->image = file_get_contents($sprite->getFullPath());
+		$classes = ConstantsFactory::create([$sprite]);
+		foreach ($classes as $class)
+		{
+			foreach ($class->constants as $const)
+			{
+				$name = $const->name;
+				$this->constants[] = sprintf('%s\\%s::%s', $class->ns, $class->name, $name);
+				$this->shortConstants[] = sprintf('%s::%s', $class->ns, $name);
+			}
+		}
 	}
 
 }

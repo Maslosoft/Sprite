@@ -41,7 +41,7 @@ to allow displaying anywhere.
 			<td>
 				{* Might be available as different class constants *}
 				<ul class="list-unstyled const-short">
-				{foreach $sprite->constants as $constant}
+				{foreach $sprite->shortConstants as $constant}
 					<li>
 						<input style="width:100%;" class="form-control"  value="{$constant}" type="text" onclick="this.setSelectionRange(0, this.value.length);document.execCommand('copy');"/>
 					</li>

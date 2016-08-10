@@ -19,8 +19,22 @@ use ReflectionClass;
 class ConstClass
 {
 
+	/**
+	 * Namespace
+	 * @var string
+	 */
 	public $ns = '';
+
+	/**
+	 * Short name
+	 * @var string
+	 */
 	public $name = '';
+
+	/**
+	 * Constants
+	 * @var ConstItem[]
+	 */
 	public $constants = [];
 
 	/**
