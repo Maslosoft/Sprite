@@ -113,8 +113,8 @@ class SpriteImage implements ArrayAccess
 			throw new UnexpectedValueException("The image '$this->path' is not a correct image format.");
 		}
 		$this->hash = sha1(file_get_contents($this->getFullPath()));
-		$this->width = $info[0];
-		$this->height = $info[1];
+		$this->width = (int) $info[0];
+		$this->height = (int) $info[1];
 		$this->mime = $info['mime'];
 		$this->type = explode('/', $this->mime)[1];
 

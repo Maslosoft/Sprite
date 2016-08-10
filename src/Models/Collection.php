@@ -101,7 +101,7 @@ class Collection
 			$column['images'][] = $image;
 
 			$column['width'] = max($column['widths']);
-			$column['height'] = array_sum($column['heights']);
+			$column['height'] = (int) array_sum($column['heights']);
 			if (isset($images[$id + 1]))
 			{
 				$nextImage = $images[$id + 1];
