@@ -70,7 +70,7 @@ class CheatSheetSprite
 			{
 				$name = $const->name;
 				$this->constants[] = sprintf('%s\\%s::%s', $class->ns, $class->name, $name);
-				$this->shortConstants[] = sprintf('%s::%s', $class->ns, $name);
+				$this->shortConstants[] = sprintf('%s::%s', $class->name, $name);
 			}
 		}
 	}
