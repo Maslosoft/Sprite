@@ -34,7 +34,7 @@ class OptimizedGenerator implements GeneratorInterface, ConfigurationAwareInterf
 
 			$src = str_replace('.png', '', $dst);
 			rename($dst, $src);
-//			$this->logger->info(sprintf('Running PNG optimizer `%s`', $this->optimizer));
+			$this->getLogger()->info(sprintf('Running PNG optimizer `%s`', $this->optimizer));
 			$cmd = strtr($config->optimizer, [
 				'{src}' => $src,
 				'{dst}' => $dst
@@ -46,7 +46,7 @@ class OptimizedGenerator implements GeneratorInterface, ConfigurationAwareInterf
 			// Log on failure
 			if ($result !== 0)
 			{
-//				$this->logger->debug(implode(PHP_EOL, $output));
+				$this->getLogger()->debug(implode(PHP_EOL, $output));
 			}
 		}
 	}
