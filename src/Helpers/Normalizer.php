@@ -28,7 +28,8 @@ class Normalizer
 	{
 		$separator = '-';
 		$input = $sprite->name;
-		return str_replace($separator, '', ucwords($input, $separator));
+		$input = str_replace($separator, ' ', $input);
+		return str_replace(' ', '', ucwords($input));
 	}
 
 	public static function decamelize(SpritePackageInterface $package, SpriteImage $sprite)
