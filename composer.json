@@ -23,6 +23,8 @@
         }
     },
 	"require": {
+		"maslosoft/miniview": "*",
+		"maslosoft/embedi": "*",
 		"maslosoft/signals": "*",
 		"symfony/console": "^3",
 		"maslosoft/sitcom": "*",
