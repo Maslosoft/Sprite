@@ -20,7 +20,8 @@ Cheat sheet of all icons
 	{foreach $sprites as $sprite}
 	<tr>
 		<td>
-			<img src="{$sprite->image}"/>
+			<img src="{$sprite->image|dataStream}"/>
+			{$sprite->image}
 		</td>
 		<td>
 			<i class="{$sprite->cssClass}"></i>

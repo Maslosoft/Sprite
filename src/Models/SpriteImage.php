@@ -138,6 +138,11 @@ class SpriteImage implements ArrayAccess
 		$this->name = $name;
 	}
 
+	public function isSquare()
+	{
+		return (int) $this->width === (int) $this->height;
+	}
+
 	/**
 	 * Get full path to image
 	 * @return string

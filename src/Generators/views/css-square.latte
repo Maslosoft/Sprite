@@ -5,11 +5,10 @@ This is base class for specified icon size
 	display:inline-block;
 	overflow:hidden;
 	vertical-align: text-top;
-	{* Just sset to height *}
-	line-height:100%;
-	width:{$width}px;
-	{* Dynamic padding *}
-	padding-bottom: 100%;
+	{* Just set to height *}
+	line-height:{$size}px;
+	width:{$size}px;
+	height:{$size}px;
 	background-repeat:no-repeat;
 	background-image:url(sprite.png) !important;
 }

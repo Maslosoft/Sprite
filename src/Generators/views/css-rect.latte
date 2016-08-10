@@ -1,0 +1,14 @@
+{*
+This is base class for specified icon size when icon is rectangle
+*}
+[class^="{$prefix}-{$width}-{$height}"], [class*=" {$prefix}-{$width}-{$height}"] {
+	display:inline-block;
+	overflow:hidden;
+	vertical-align: text-top;
+	{* Just set to height *}
+	line-height:{$height}px;;
+	width:{$width}px;
+	height:{$height}px;
+	background-repeat:no-repeat;
+	background-image:url(sprite.png) !important;
+}

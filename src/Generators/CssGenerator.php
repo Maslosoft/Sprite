@@ -43,21 +43,44 @@ class CssGenerator implements CssGeneratorInterface
 		$config = $this->getConfig();
 		FolderChecker::check($config);
 		$css = [];
-		$sizes = [];
+		$squares = [];
+		$rects = [];
 
 		foreach ($collection->getSprites() as $image)
 		{
-			$sizes[$image->width] = $image->width;
+			if ($image->isSquare())
+			{
+				$squares[$image->width] = $image->width;
+			}
+			else
+			{
+				$size = sprintf('%sx%s', $image->width, $image->height);
+				$rects[$size] = [
+					$image->width,
+					$image->height
+				];
+			}
 		}
 
-		foreach ($sizes as $size)
+		// Square icons
+		foreach ($squares as $size)
 		{
-//			$css[] = sprintf($template, $this->iconCssClass, $size);
 			$params = [
 				'prefix' => $config->iconCssClass,
 				'size' => $size
 			];
-			$this->mv->render('css-size.latte', $params, true);
+			$css[] = $this->mv->render('css-square.latte', $params, true);
+		}
+
+		// Rectangle icons
+		foreach ($rects as $size)
+		{
+			$params = [
+				'prefix' => $config->iconCssClass,
+				'width' => $size[0],
+				'height' => $size[1]
+			];
+			$css[] = $this->mv->render('css-rect.latte', $params, true);
 		}
 
 		// Generate css for each image
@@ -77,10 +100,6 @@ class CssGenerator implements CssGeneratorInterface
 				}
 				// NOTE: This must be in sprites loop, not packages loop
 				$top -= $image->height;
-//				$css .= '.' . $this->iconCssClass . '-' . $image->name . '{';
-//				$css .= 'background-position:' . -$group->offset . 'px ' . ($top - $group->height) . 'px;';
-//				$css .= '}' . "\n";
-//				$top -= $image->height;
 			}
 		}
 
