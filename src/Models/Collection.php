@@ -111,7 +111,7 @@ class Collection
 				$nextImage = [];
 			}
 
-			// Split because it's lat image
+			// Split because it's last image
 			if ($counter == $imagesCount)
 			{
 				$doSplit = true;
