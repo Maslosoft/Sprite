@@ -12,6 +12,7 @@
 
 namespace Maslosoft\Sprite\Models;
 
+use Maslosoft\Sprite\Helpers\Normalizer;
 use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 
 /**
@@ -58,7 +59,7 @@ class Package implements SpritePackageInterface
 	 *
 	 * Example function:
 	 * ```php
-	 * $converter = function(SpritePackageInterface $signal, SpriteImage $sprite)
+	 * $converter = function(SpritePackageInterface $package, SpriteImage $sprite)
 	 * {
 	 * 			// Basic camelize function
 	 * 		return lcfirst(str_replace('-', '', ucwords($sprite->name, '-')));
@@ -66,7 +67,32 @@ class Package implements SpritePackageInterface
 	 * ```
 	 * @var callback
 	 */
-	public $constantsConverter = null;
+	public $constantsConverter = [Normalizer::class, 'camelize'];
+
+	/**
+	 * Define any valid PHP callback to customize transformation of CSS class names.
+	 * By default they are decamelized, ie:
+	 * ```
+	 * Document-Folder
+	 * ```
+	 * Will become:
+	 * ```
+	 * document-folder
+	 * ```
+	 *
+	 * Function accepts two parameter, package interface instance and sprite object.
+	 *
+	 * Example function:
+	 * ```php
+	 * $converter = function(SpritePackageInterface $package, SpriteImage $sprite)
+	 * {
+	 * 			// Basic camelize function
+	 * 		return lcfirst(str_replace('-', '', ucwords($sprite->name, '-')));
+	 * };
+	 * ```
+	 * @var callback
+	 */
+	public $cssClassNameConverter = [Normalizer::class, 'decamelize'];
 
 	/**
 	 * Icon prefix. It is used by CSS as selector.
@@ -130,6 +156,11 @@ class Package implements SpritePackageInterface
 		return $this->constantsConverter;
 	}
 
+	public function getCssClassNameConverter()
+	{
+		return $this->cssClassNameConverter;
+	}
+
 	public function getIconPrefix()
 	{
 		return $this->iconPrefix;
@@ -149,6 +180,12 @@ class Package implements SpritePackageInterface
 	public function setConstantsConverter($constantsConverter)
 	{
 		$this->constantsConverter = $constantsConverter;
+		return $this;
+	}
+
+	public function setCssClassNameConverter($cssClassNameConverter)
+	{
+		$this->cssClassNameConverter = $cssClassNameConverter;
 		return $this;
 	}
 

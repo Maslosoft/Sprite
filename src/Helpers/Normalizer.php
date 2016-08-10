@@ -8,6 +8,9 @@
 
 namespace Maslosoft\Sprite\Helpers;
 
+use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
+use Maslosoft\Sprite\Models\SpriteImage;
+
 /**
  * Normalize css/constants names
  *
@@ -16,14 +19,18 @@ namespace Maslosoft\Sprite\Helpers;
 class Normalizer
 {
 
-	public static function camelize()
+	public static function camelize(SpritePackageInterface $package, SpriteImage $sprite)
 	{
+		$separator = '-';
+		$input = $sprite->name;
 		return str_replace($separator, '', ucwords($input, $separator));
 	}
 
-	public static function decamelize()
+	public static function decamelize(SpritePackageInterface $package, SpriteImage $sprite)
 	{
-		return ltrim(strtolower(preg_replace('/[A-Z]/', "$separator$0", $input)), $separator);
+		$separator = '-';
+		$input = $sprite->name;
+		return preg_replace('~-+~', '-', ltrim(strtolower(preg_replace('/[A-Z]/', "$separator$0", $input)), $separator));
 	}
 
 }

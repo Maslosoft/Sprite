@@ -19,6 +19,8 @@ interface SpritePackageInterface
 
 	public function getConstantsConverter();
 
+	public function getCssClassNameConverter();
+
 	public function getIconPrefix();
 
 	public function getPaths();
@@ -26,6 +28,8 @@ interface SpritePackageInterface
 	public function setConstantsClass($constantsClass);
 
 	public function setConstantsConverter($constantsConverter);
+
+	public function setCssClassNameConverter($cssClassNameConverter);
 
 	public function setIconPrefix($iconPrefix);
 

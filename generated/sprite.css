@@ -28,25 +28,25 @@
 	background-repeat:no-repeat;
 	background-image:url(sprite.png) !important;
 }
-.icon-16-Group-Key{
+.icon-16-group-key{
 	background-position: 0px 0px;
 }
-.icon-16-Group{
+.icon-16-group{
 	background-position: 0px -16px;
 }
-.icon-16-Help{
+.icon-16-help{
 	background-position: 0px -32px;
 }
-.icon-16-Key{
+.icon-16-key{
 	background-position: 0px -48px;
 }
-.icon-16-Node-Tree{
+.icon-16-node-tree{
 	background-position: 0px -64px;
 }
-.icon-16-Recycle{
+.icon-16-recycle{
 	background-position: 0px -80px;
 }
-.icon-16-Text-List-Numbers{
+.icon-16-text-list-numbers{
 	background-position: 0px -96px;
 }
 .icon-16-application-block{
