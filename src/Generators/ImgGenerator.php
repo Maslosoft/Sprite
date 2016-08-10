@@ -57,7 +57,6 @@ class ImgGenerator implements SpriteGeneratorInterface
 						break;
 					default:
 						continue;
-						break;
 				}
 				if (empty($img))
 				{
