@@ -26,6 +26,7 @@ class ConstantsFactory
 	 */
 	public static function create($sprites)
 	{
+		$className = '';
 		$classes = [];
 		foreach ($sprites as $image)
 		{

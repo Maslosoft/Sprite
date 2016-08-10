@@ -9,6 +9,7 @@
 namespace Maslosoft\Sprite\Models;
 
 use Maslosoft\Sprite\Helpers\Namer;
+use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 use ReflectionClass;
 
 /**
@@ -39,22 +40,16 @@ class ConstClass
 
 	/**
 	 * Package
-	 * @var Package
+	 * @var SpritePackageInterface
 	 */
 	private $package = null;
-
-	/**
-	 * Sprite
-	 * @var SpriteImage
-	 */
-	private $sprites = null;
 
 	/**
 	 * @var string
 	 */
 	private $path = '';
 
-	public function __construct(Package $package)
+	public function __construct(SpritePackageInterface $package)
 	{
 		$this->package = $package;
 		$className = $this->package->getConstantsClass();
