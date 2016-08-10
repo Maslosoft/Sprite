@@ -16,7 +16,7 @@ namespace Maslosoft\Sprite\Interfaces;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface CssGeneratorInterface extends GeneratorInterface, CollectionAwareInterface
+interface CssGeneratorInterface extends GeneratorInterface, CollectionAwareInterface, ConfigurationAwareInterface
 {
-
+	
 }

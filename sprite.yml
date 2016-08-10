@@ -4,6 +4,12 @@
 runtimePath: runtime
 # Path for result sprite files
 generatedPath: generated
+# Base name for generated files
+# For example value of `sprite` will result in generating files:
+# * sprite.css
+# * sprite.png
+# * sprite.html
+basename: sprite
 # CSS class name prefix used for all icons.
 # This should be something distinctive
 # or might match many CSS elements.
@@ -12,11 +18,11 @@ iconCssClass: icon
 optimizer: pngquant --ext .png --force {src}
 # Generator classes used to generate files
 generators:
-  - Maslosoft\Sprite\Generators\
-  - Maslosoft\Sprite\Generators\
-  - Maslosoft\Sprite\Generators\
-  - Maslosoft\Sprite\Generators\
-  
+  - Maslosoft\Sprite\Generators\CssGenerator::class
+  - Maslosoft\Sprite\Generators\ImgGenerator::class
+  - Maslosoft\Sprite\Generators\CheatSheetGenerator::class
+  - Maslosoft\Sprite\Generators\ConstantsGenerator::class
+
 # Configuration options below are used only when running as local generator
 # These are same as one package config
 

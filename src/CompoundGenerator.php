@@ -15,9 +15,11 @@ use Maslosoft\Sprite\Generators\CssGenerator;
 use Maslosoft\Sprite\Generators\ImgGenerator;
 use Maslosoft\Sprite\Helpers\ImageFinder;
 use Maslosoft\Sprite\Interfaces\CollectionAwareInterface;
+use Maslosoft\Sprite\Interfaces\ConfigurationAwareInterface;
 use Maslosoft\Sprite\Interfaces\GeneratorInterface;
 use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 use Maslosoft\Sprite\Models\Collection;
+use Maslosoft\Sprite\Models\Configuration;
 
 /**
  * CompoundGenerator
@@ -26,17 +28,6 @@ use Maslosoft\Sprite\Models\Collection;
  */
 class CompoundGenerator implements GeneratorInterface
 {
-
-	/**
-	 * Generators configuration
-	 * @var array
-	 */
-	public $generators = [
-		CssGenerator::class,
-		ImgGenerator::class,
-		ConstantsGenerator::class,
-		CheatSheetGenerator::class,
-	];
 
 	/**
 	 * Sprite packages
@@ -51,16 +42,21 @@ class CompoundGenerator implements GeneratorInterface
 
 	public function generate()
 	{
+		$config = new Configuration();
 		$di = new EmbeDi();
 		$sprites = (new ImageFinder())->find($this->packages);
 		$collection = new Collection($sprites);
-		foreach ($this->generators as $config)
+		foreach ($config->generators as $generatorConfig)
 		{
-			$generator = $di->apply($config);
+			$generator = $di->apply($generatorConfig);
 			/* @var $generator GeneratorInterface */
 			if ($generator instanceof CollectionAwareInterface)
 			{
 				$generator->setCollection($collection);
+			}
+			if ($generator instanceof ConfigurationAwareInterface)
+			{
+				$generator->setConfig($config);
 			}
 			$generator->generate();
 		}

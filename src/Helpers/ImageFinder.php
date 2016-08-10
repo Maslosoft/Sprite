@@ -8,7 +8,6 @@
 
 namespace Maslosoft\Sprite\Helpers;
 
-use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 use Maslosoft\Sprite\Models\SpriteImage;
 use Symfony\Component\Finder\Finder;
 
@@ -27,7 +26,7 @@ class ImageFinder
 
 		$finder->sortByChangedTime();
 		$finder->sortByAccessedTime();
-
+		$finder->name('/\.(png|jpg|gif)$/');
 		$sprites = [];
 		foreach ($packages as $package)
 		{

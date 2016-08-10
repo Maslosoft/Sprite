@@ -111,7 +111,7 @@ class SpriteImage implements ArrayAccess
 		{
 			throw new UnexpectedValueException("The image '$this->path' is not a correct image format.");
 		}
-		$this->hash = sha1(file_get_contents($this->info->getPathname()));
+		$this->hash = sha1(file_get_contents($this->getFullPath()));
 		$this->width = $info[0];
 		$this->height = $info[1];
 		$this->mime = $info['mime'];
@@ -144,7 +144,7 @@ class SpriteImage implements ArrayAccess
 	 */
 	public function getFullPath()
 	{
-		return $this->basePath . DIRECTORY_SEPARATOR . $this->info;
+		return $this->info->getRealPath();
 	}
 
 // <editor-fold defaultstate="collapsed" desc="ArrayAccess implementation">

@@ -12,6 +12,8 @@
 
 namespace Maslosoft\Sprite\Application;
 
+use Maslosoft\Sprite\Commands\LocalCommand;
+use Maslosoft\Sprite\Commands\SignalCommand;
 use Maslosoft\Sprite\Generator;
 use Symfony\Component\Console\Application as ConsoleApplication;
 
@@ -40,6 +42,8 @@ LOGO;
 	public function __construct()
 	{
 		parent::__construct('Sprite', (new Generator)->getVersion());
+		$this->add(new LocalCommand);
+		$this->add(new SignalCommand);
 	}
 
 	public function getHelp()

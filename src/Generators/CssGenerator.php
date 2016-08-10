@@ -9,9 +9,11 @@
 namespace Maslosoft\Sprite\Generators;
 
 use Maslosoft\MiniView\MiniView;
+use Maslosoft\Sprite\Helpers\FolderChecker;
 use Maslosoft\Sprite\Helpers\Namer;
 use Maslosoft\Sprite\Interfaces\CssGeneratorInterface;
 use Maslosoft\Sprite\Traits\CollectionAwareTrait;
+use Maslosoft\Sprite\Traits\ConfigurationAwareTrait;
 
 /**
  * CssGenerator
@@ -21,7 +23,8 @@ use Maslosoft\Sprite\Traits\CollectionAwareTrait;
 class CssGenerator implements CssGeneratorInterface
 {
 
-	use CollectionAwareTrait;
+	use ConfigurationAwareTrait,
+	  CollectionAwareTrait;
 
 	/**
 	 * View instance
@@ -37,6 +40,8 @@ class CssGenerator implements CssGeneratorInterface
 	public function generate()
 	{
 		$collection = $this->getCollection();
+		$config = $this->getConfig();
+		FolderChecker::check($config);
 		$css = [];
 		$sizes = [];
 
@@ -49,10 +54,10 @@ class CssGenerator implements CssGeneratorInterface
 		{
 //			$css[] = sprintf($template, $this->iconCssClass, $size);
 			$params = [
-				'prefix' => 'icon',
+				'prefix' => $config->iconCssClass,
 				'size' => $size
 			];
-			$this->mv->render('css-size', $params, true);
+			$this->mv->render('css-size.latte', $params, true);
 		}
 
 		// Generate css for each image
@@ -68,7 +73,7 @@ class CssGenerator implements CssGeneratorInterface
 						'horizontal' => -$group->offset,
 						'vertical' => $top - $group->height
 					];
-					$css[] = $this->mv->render('css-icon', $params, true);
+					$css[] = $this->mv->render('css-icon.latte', $params, true);
 				}
 				// NOTE: This must be in sprites loop, not packages loop
 				$top -= $image->height;
@@ -78,6 +83,9 @@ class CssGenerator implements CssGeneratorInterface
 //				$top -= $image->height;
 			}
 		}
+
+		$filename = sprintf('%s/%s.css', $config->generatedPath, $config->basename);
+		file_put_contents($filename, implode("\n", $css));
 	}
 
 }

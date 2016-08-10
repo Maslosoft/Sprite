@@ -13,7 +13,7 @@
 namespace Maslosoft\Sprite\Commands;
 
 use Maslosoft\Sitcom\Command;
-use Maslosoft\Sprite\Generator;
+use Maslosoft\Sprite\SignaledGenerator;
 use Symfony\Component\Console\Command\Command as ConsoleCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -29,7 +29,7 @@ class SignalCommand extends ConsoleCommand
 	protected function configure()
 	{
 		parent::configure();
-		$this->setName("generate");
+		$this->setName("signal");
 		$this->setDescription("Generate sprite image, CSS and possibly other files based on emitted signal");
 		$this->setHelp(<<<EOT
 The <info>generate</info> command will generate sprite image and CSS based local on <info>sprite.yml</info> possible EmbeDi configuration sources and emitted signal result.
@@ -46,7 +46,7 @@ EOT
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		(new Generator)->generate();
+		(new SignaledGenerator)->generate();
 	}
 
 	/**

@@ -14,33 +14,19 @@ use Maslosoft\Sprite\Models\Configuration;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class ConfigurationAwareInterface
+interface ConfigurationAwareInterface
 {
 
 	/**
-	 * Sprite generator configuration
-	 * @var Configuration
-	 */
-	private $config = null;
-
-	/**
 	 * Get configuration
-	 * @return Configuration
+	 * @
 	 */
-	public function getConfig()
-	{
-		return $this->config;
-	}
+	public function getConfig();
 
 	/**
 	 * Set configuration
 	 * @param Configuration $config
-	 * @return $this
+	 * @
 	 */
-	public function setConfig(Configuration $config)
-	{
-		$this->config = $config;
-		return $this;
-	}
-
+	public function setConfig(Configuration $config);
 }

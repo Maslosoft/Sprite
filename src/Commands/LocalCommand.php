@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class GenerateCommand extends ConsoleCommand
+class LocalCommand extends ConsoleCommand
 {
 
 	protected function configure()

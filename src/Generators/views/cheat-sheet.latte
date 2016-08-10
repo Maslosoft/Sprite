@@ -5,7 +5,10 @@ Cheat sheet of all icons
 <table>
 	<tr>
 		<th>
-			{* Icon *}
+			Image
+		</th>
+		<th>
+			Sprite
 		</th>
 		<th>
 			CSS class name
@@ -16,25 +19,28 @@ Cheat sheet of all icons
 	</tr>
 	{foreach $sprites as $sprite}
 	<tr>
-		<th>
+		<td>
+			<img src="{$sprite->image}"/>
+		</td>
+		<td>
 			<i class="{$sprite->cssClass}"></i>
-		</th>
-		<th>
+		</td>
+		<td>
 			{* Might be available on different class names *}
 			<ul>
 			{foreach $sprite->cssClasses as $cssClass}
 				<li><input value="{$cssClass}" type="text"/></li>
 			{/foreach}
 			</ul>
-		</th>
-		<th>
+		</td>
+		<td>
 			{* Might be available as different class constants *}
 			<ul>
 			{foreach $sprite->constants as $constant}
 				<li><input value="{$constant}" type="text"/></li>
 			{/foreach}
 			</ul>
-		</th>
+		</td>
 	</tr>
 	{/foreach}
 </table>

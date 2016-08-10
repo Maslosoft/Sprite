@@ -16,7 +16,7 @@ namespace Maslosoft\Sprite\Interfaces;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface SpriteGeneratorInterface extends GeneratorInterface, CollectionAwareInterface
+interface SpriteGeneratorInterface extends GeneratorInterface, ConfigurationAwareInterface, CollectionAwareInterface
 {
-
+	
 }

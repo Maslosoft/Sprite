@@ -17,7 +17,7 @@ use Maslosoft\Sprite\Models\Configuration;
  * @see ConfigurationAwareInterface
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class ConfigurationAwareTrait
+trait ConfigurationAwareTrait
 {
 
 	/**

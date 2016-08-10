@@ -158,7 +158,7 @@ class Collection
 		}
 		foreach ($columns as $key => $dimensions)
 		{
-			$groups[$m]->offset = $totalWidth;
+			$groups[$key]->offset = $totalWidth;
 			$totalWidth += $dimensions['width'];
 			if ($dimensions['height'] > $totalHeight)
 			{

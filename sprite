@@ -16,5 +16,4 @@ elseif (file_exists(__DIR__ . '/../../autoload.php'))
 }
 
 $app = new Application();
-$app->add(new GenerateCommand());
 $app->run();
