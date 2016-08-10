@@ -30,16 +30,12 @@ class SignaledGenerator implements GeneratorInterface
 		$signals = (new Signal)->emit(new Sprite);
 
 
-		$generator = new Generator();
+		$generator = new CompoundGenerator();
 
 		foreach ($signals as $signal)
 		{
-			foreach ($signal->paths as $path)
-			{
-				$generator->paths[] = realpath($path);
-			}
+			$generator->add($signal);
 		}
-		$generator->paths = array_unique($generator->paths);
 
 		$generator->generate();
 	}

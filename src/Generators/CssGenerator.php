@@ -8,6 +8,7 @@
 
 namespace Maslosoft\Sprite\Generators;
 
+use Maslosoft\MiniView\MiniView;
 use Maslosoft\Sprite\Interfaces\CssGeneratorInterface;
 use Maslosoft\Sprite\Models\Collection;
 
@@ -19,6 +20,17 @@ use Maslosoft\Sprite\Models\Collection;
 class CssGenerator implements CssGeneratorInterface
 {
 
+	/**
+	 * View instance
+	 * @var MiniView
+	 */
+	private $mv = null;
+
+	public function __construct()
+	{
+		$this->mv = new MiniView($this);
+	}
+
 	public function generate()
 	{
 		
@@ -26,7 +38,7 @@ class CssGenerator implements CssGeneratorInterface
 
 	public function setCollection(Collection $collection)
 	{
-
+		
 	}
 
 }

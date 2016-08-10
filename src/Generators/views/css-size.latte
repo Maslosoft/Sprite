@@ -1,0 +1,15 @@
+{*
+This is base class for specified icon size
+*}
+[class^="{$cssClass}"], [class*=" {$cssClass}"] {
+	display:inline-block;
+	overflow:hidden;
+	vertical-align: text-top;
+	{* Just sset to height *}
+	line-height:100%;
+	width:{$width}px;
+	{* Dynamic padding *}
+	padding-bottom: 100%;
+	background-repeat:no-repeat;
+	background-image:url(sprite.png) !important;
+}

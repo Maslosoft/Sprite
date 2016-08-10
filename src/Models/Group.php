@@ -13,7 +13,7 @@
 namespace Maslosoft\Sprite\Models;
 
 /**
- * Group
+ * Images group/column
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
@@ -21,7 +21,17 @@ class Group
 {
 
 	public $sprites;
+
+	/**
+	 * Total width of group of sprites
+	 * @var int
+	 */
 	public $width = 0;
+
+	/**
+	 * Total height of group of sprites
+	 * @var int
+	 */
 	public $height = 0;
 
 }

@@ -13,6 +13,7 @@
 namespace Maslosoft\Sprite\Models;
 
 use ArrayAccess;
+use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use UnexpectedValueException;
 
@@ -79,6 +80,18 @@ class SpriteImage implements ArrayAccess
 	public $name = '';
 
 	/**
+	 * Image checksum
+	 * @var string
+	 */
+	public $hash = '';
+
+	/**
+	 * Packages, to which this sprite belongs
+	 * @var SpritePackageInterface[]
+	 */
+	public $packages = [];
+
+	/**
 	 * Create sprite image data holder
 	 * @param string $path
 	 * @param SplFileInfo $fileInfo
@@ -98,6 +111,7 @@ class SpriteImage implements ArrayAccess
 		{
 			throw new UnexpectedValueException("The image '$this->path' is not a correct image format.");
 		}
+		$this->hash = sha1(file_get_contents($this->info->getPathname()));
 		$this->width = $info[0];
 		$this->height = $info[1];
 		$this->mime = $info['mime'];

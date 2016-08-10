@@ -13,17 +13,30 @@
 namespace Maslosoft\Sprite\Models;
 
 /**
- * Collection
+ * Collection of image groups
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
 class Collection
 {
 
+	/**
+	 * Total width of all groups
+	 * @var int
+	 */
 	public $width = 0;
+
+	/**
+	 * Total height of all groups
+	 * @var int
+	 */
 	public $height = 0;
 	private $sprites = [];
 
+	/**
+	 *
+	 * @param SpriteImage[] $sprites
+	 */
 	public function __construct($sprites = [])
 	{
 		$this->sprites = $sprites;
@@ -31,7 +44,7 @@ class Collection
 
 	public function getGroups()
 	{
-
+		
 	}
 
 }

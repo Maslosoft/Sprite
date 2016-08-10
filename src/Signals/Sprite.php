@@ -13,6 +13,7 @@
 namespace Maslosoft\Sprite\Signals;
 
 use Maslosoft\Signals\Interfaces\SignalInterface;
+use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 
 /**
  * Respond to this signal to instruct sprite
@@ -20,7 +21,7 @@ use Maslosoft\Signals\Interfaces\SignalInterface;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class Sprite implements SignalInterface
+class Sprite implements SignalInterface, SpritePackageInterface
 {
 
 	/**
@@ -120,5 +121,49 @@ class Sprite implements SignalInterface
 	 * @var string[]
 	 */
 	public $paths = '';
+
+	public function getConstantsClass()
+	{
+		return $this->constantsClass;
+	}
+
+	public function getConstantsConverter()
+	{
+		return $this->constantsConverter;
+	}
+
+	public function getIconPrefix()
+	{
+		return $this->iconPrefix;
+	}
+
+	public function getPaths()
+	{
+		return $this->paths;
+	}
+
+	public function setConstantsClass($constantsClass)
+	{
+		$this->constantsClass = $constantsClass;
+		return $this;
+	}
+
+	public function setConstantsConverter($constantsConverter)
+	{
+		$this->constantsConverter = $constantsConverter;
+		return $this;
+	}
+
+	public function setIconPrefix($iconPrefix)
+	{
+		$this->iconPrefix = $iconPrefix;
+		return $this;
+	}
+
+	public function setPaths($paths)
+	{
+		$this->paths = $paths;
+		return $this;
+	}
 
 }

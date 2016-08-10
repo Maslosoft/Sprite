@@ -13,6 +13,7 @@
 namespace Maslosoft\Sprite\Helpers;
 
 use Maslosoft\Sprite\Models\SpriteImage;
+use UnexpectedValueException;
 
 /**
  * ImageSorter
@@ -41,6 +42,11 @@ class ImageSorter
 		$sizes = [];
 		foreach ($sprites as $key => $image)
 		{
+			if (!$image instanceof SpriteImage)
+			{
+				throw new UnexpectedValueException('Expected `%s` got `%s`', SpriteImage::class, is_object($image) ? get_class($image) : gettype($image));
+			}
+			/* @var $image SpriteImage */
 			$widths[$key] = $image->width;
 			$heights[$key] = $image->height;
 			$sizes[$key] = $image->size;

@@ -9,7 +9,7 @@
 namespace Maslosoft\Sprite\Generators;
 
 /**
- * CheatSheetGenerator
+ * Generate HTML cheat sheet with all of the icons
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
