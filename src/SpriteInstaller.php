@@ -27,7 +27,7 @@ class SpriteInstaller extends InstallersBase
 	public function install()
 	{
 		$sprite = new Generator();
-		$sprite->reset();
+		$sprite->generate();
 		$this->installer->success(tx('Rebuild sprite', 'Maslosoft.Sprite.Installer'));
 	}
 
