@@ -1,46 +1,61 @@
 {*
 Cheat sheet of all icons
+NOTE: Some hardcoded styles are on purpose, 
+to allow displaying anywhere.
 *}
 
 <table class="table table-striped">
-	<tr>
-		<th style="width:1%">
-			Image
-		</th>
-		<th style="width:1%">
-			Sprite
-		</th>
-		<th>
-			CSS class names
-		</th>
-		<th>
-			Class constant names
-		</th>
-	</tr>
+	<thead>
+		<tr>
+			<th style="width:1%">
+				Image
+			</th>
+			<th style="width:1%">
+				Sprite
+			</th>
+			<th>
+				CSS class names
+			</th>
+			<th>
+				Class constant names
+			</th>
+		</tr>
+	</thead>
+	<tbody>
 	{foreach $sprites as $sprite}
-	<tr>
-		<td>
-			<img src="{$sprite->image|dataStream}"/>
-		</td>
-		<td>
-			<i class="{$sprite->cssClass}"></i>
-		</td>
-		<td>
-			{* Might be available on different class names *}
-			<ul class="list-unstyled">
-			{foreach $sprite->cssClasses as $cssClass}
-				<li><input style="width:100%;" value="{$cssClass}" type="text" onclick="this.setSelectionRange(0, this.value.length);"/></li>
-			{/foreach}
-			</ul>
-		</td>
-		<td>
-			{* Might be available as different class constants *}
-			<ul class="list-unstyled">
-			{foreach $sprite->constants as $constant}
-				<li><input style="width:100%;" value="{$constant}" type="text"/></li>
-			{/foreach}
-			</ul>
-		</td>
-	</tr>
+		<tr>
+			<td class="td-image">
+				<img src="{$sprite->image|dataStream}"/>
+			</td>
+			<td class="td-sprite">
+				<i class="{$sprite->cssClass}"></i>
+			</td>
+			<td>
+				{* Might be available on different class names *}
+				<ul class="list-unstyled">
+				{foreach $sprite->cssClasses as $cssClass}
+					<li><input style="width:100%;" class="form-control" value="{$cssClass}" type="text" onclick="this.setSelectionRange(0, this.value.length);document.execCommand('copy');"/></li>
+				{/foreach}
+				</ul>
+			</td>
+			<td>
+				{* Might be available as different class constants *}
+				<ul class="list-unstyled const-short">
+				{foreach $sprite->constants as $constant}
+					<li>
+						<input style="width:100%;" class="form-control"  value="{$constant}" type="text" onclick="this.setSelectionRange(0, this.value.length);document.execCommand('copy');"/>
+					</li>
+				{/foreach}
+				</ul>
+				<ul class="list-unstyled const-long">
+				{foreach $sprite->constants as $constant}
+					<li>
+						<input style="width:100%;" class="form-control"  value="{$constant}" type="text" onclick="this.setSelectionRange(0, this.value.length);document.execCommand('copy');"/>
+					</li>
+				{/foreach}
+				</ul>
+			</td>
+		</tr>
 	{/foreach}
+	</tbody>
 </table>
