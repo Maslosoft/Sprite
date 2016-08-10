@@ -44,7 +44,7 @@ trait LoggerAwareTrait
 
 	/**
 	 * Get logger
-	 * @return LoggerAwareInterface
+	 * @return LoggerInterface
 	 */
 	public function getLogger()
 	{
