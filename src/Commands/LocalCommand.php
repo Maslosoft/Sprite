@@ -13,6 +13,7 @@
 
 namespace Maslosoft\Sprite\Commands;
 
+use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Sitcom\Command;
 use Maslosoft\Sprite\Generator;
 use Symfony\Component\Console\Command\Command as ConsoleCommand;
@@ -24,7 +25,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class LocalCommand extends ConsoleCommand
+class LocalCommand extends ConsoleCommand implements AnnotatedInterface
 {
 
 	protected function configure()
