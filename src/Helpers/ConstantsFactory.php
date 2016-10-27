@@ -8,6 +8,7 @@
 
 namespace Maslosoft\Sprite\Helpers;
 
+use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 use Maslosoft\Sprite\Models\ConstClass;
 use Maslosoft\Sprite\Models\SpriteImage;
 
@@ -22,16 +23,19 @@ class ConstantsFactory
 	/**
 	 * Create class constant models out of sprites array
 	 * @param SpriteImage[] $sprites
-	 * @return \Maslosoft\Sprite\Helpers\ConstClass[]
+	 * @return ConstClass[]
 	 */
 	public static function create($sprites)
 	{
 		$className = '';
 		$classes = [];
+
 		foreach ($sprites as $image)
 		{
+			/* @var $image SpriteImage */
 			foreach ($image->packages as $package)
 			{
+				/* @var $package SpritePackageInterface */
 				$className = $package->getConstantsClass();
 
 				// Skip empty
