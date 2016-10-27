@@ -70,14 +70,23 @@ class CheatSheetGenerator implements GeneratorInterface, CollectionAwareInterfac
 		$filename = sprintf('%s/%s-table.html', $config->generatedPath, $config->basename);
 		file_put_contents($filename, $table);
 
+		$cssFileName = sprintf('%s/%s.css', $config->generatedPath, $config->basename);
+		$pngFileName = sprintf('%s/%s.png', $config->generatedPath, $config->basename);
+		$pngImage = base64_encode(file_get_contents($pngFileName));
+		$pattern = sprintf('url(%s.png)', $config->basename);
+		$replace = sprintf('url(data:image/png;base64,%s)', $pngImage);
+		$cssContents = file_get_contents($cssFileName);
+		$css = str_replace($pattern, $replace, $cssContents);
+
 		// Generate index
 		$params = [
 			'table' => $table,
 			// Use base name, as cheet sheet is in same directory
 			// and base name in config might point to sub-folder
-			'css' => sprintf('%s.css', basename($config->basename)),
+			'css' => $css,
 			'hasConsts' => $hasConsts
 		];
+
 		$index = $this->mv->render('cheat-sheet-index.latte', $params, true);
 		$indexFilename = sprintf('%s/%s-index.html', $config->generatedPath, $config->basename);
 		file_put_contents($indexFilename, $index);
