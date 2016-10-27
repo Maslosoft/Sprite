@@ -27,16 +27,16 @@ class ImageFinder
 	public function find($packages)
 	{
 		// Get icons
-		$finder = new Finder();
-
-		$finder->sortByChangedTime();
-		$finder->sortByAccessedTime();
-		$finder->name('/\.(png|jpg|gif)$/');
 		$sprites = [];
 		foreach ($packages as $package)
 		{
 			foreach ($package->getPaths() as $path)
 			{
+				$finder = new Finder();
+
+				$finder->sortByChangedTime();
+				$finder->sortByAccessedTime();
+				$finder->name('/\.(png|jpg|gif)$/');
 				foreach ($finder->in($path) as $fileInfo)
 				{
 					$sprite = new SpriteImage($path, $fileInfo);
