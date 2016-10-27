@@ -16,6 +16,7 @@ namespace Maslosoft\Sprite\Generators;
 use Maslosoft\Sprite\Interfaces\SpriteGeneratorInterface;
 use Maslosoft\Sprite\Traits\CollectionAwareTrait;
 use Maslosoft\Sprite\Traits\ConfigurationAwareTrait;
+use UnexpectedValueException;
 
 /**
  * ImgGenerator
@@ -32,7 +33,10 @@ class ImgGenerator implements SpriteGeneratorInterface
 	{
 		$collection = $this->getCollection();
 		$config = $this->getConfig();
-
+		if ($collection->width === 0 || $collection->height === 0)
+		{
+			throw new UnexpectedValueException('Expected collection width and height to be grater than zero');
+		}
 		$sprite = imagecreatetruecolor($collection->width, $collection->height);
 		imagesavealpha($sprite, true);
 		$transparent = imagecolorallocatealpha($sprite, 0, 0, 0, 127); //127 not 100
