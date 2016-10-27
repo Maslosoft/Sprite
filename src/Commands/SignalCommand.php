@@ -48,7 +48,7 @@ EOT
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		(new SignaledGenerator)->generate();
+		(new SignaledGenerator)->generate(true);
 	}
 
 	/**

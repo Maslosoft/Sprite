@@ -22,10 +22,10 @@ use Maslosoft\Sprite\Models\Package;
  *
  * Respond to this signal to instruct sprite
  * generator where are icons located and how the should be named.
- * 
+ *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class SpritePackage implements SignalInterface
+class SpritePackage implements SignalInterface, \Maslosoft\Signals\Interfaces\SlotAwareInterface
 {
 
 	/**
@@ -33,6 +33,7 @@ class SpritePackage implements SignalInterface
 	 * @var SpritePackageInterface[]|Package[]
 	 */
 	private $packages = [];
+	private $slot = null;
 
 	/**
 	 *
@@ -50,6 +51,16 @@ class SpritePackage implements SignalInterface
 	public function getPackages()
 	{
 		return $this->packages;
+	}
+
+	public function setSlot($slot)
+	{
+		$this->slot = $slot;
+	}
+
+	public function getSlot()
+	{
+		return $this->slot;
 	}
 
 }

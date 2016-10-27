@@ -25,8 +25,11 @@ use Maslosoft\Sprite\Signals\SpritePackage;
 class SignaledGenerator implements GeneratorInterface
 {
 
-	public function generate()
+	private $verbose = false;
+
+	public function generate($verbose = false)
 	{
+		$this->verbose = $verbose;
 		// Gather package signals
 		$signals = (new Signal)->emit(new SpritePackage());
 
@@ -36,13 +39,30 @@ class SignaledGenerator implements GeneratorInterface
 		foreach ($signals as $signal)
 		{
 			/* @var $signal SpritePackage */
+			$this->out(sprintf('SIG: %s', get_class($signal->getSlot())));
 			foreach ($signal->getPackages() as $package)
 			{
+				$this->out(sprintf('PKG: %s', get_class($package)));
+				$data = [
+					'CLS: ' . $package->getConstantsClass(),
+					'DIR: ' . PHP_EOL . implode(PHP_EOL, $package->getPaths())
+				];
+				$this->out(implode(PHP_EOL, $data));
+				$this->out('');
 				$generator->add($package);
 			}
 		}
 
 		$generator->generate();
+	}
+
+	private function out($msg)
+	{
+		if (!$this->verbose)
+		{
+			return;
+		}
+		echo $msg . PHP_EOL;
 	}
 
 }
