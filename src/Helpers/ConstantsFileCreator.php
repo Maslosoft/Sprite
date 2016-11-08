@@ -46,7 +46,6 @@ class ConstantsFileCreator
 			];
 			$def = $view->render('constantsClass.latte', $params, true);
 			$result = file_put_contents($fileName, $def);
-			var_dump($result);
 			assert($result, new RuntimeException("Could not write into $fileName"));
 		}
 	}
