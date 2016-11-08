@@ -67,6 +67,7 @@ class CheatSheetSprite
 			$this->cssClasses[] = Namer::nameCssClass($package, $sprite);
 		}
 		$this->cssClass = $this->cssClasses[0];
+		$this->cssClasses = array_unique($this->cssClasses);
 
 		$this->image = file_get_contents($sprite->getFullPath());
 		$classes = ConstantsFactory::create([$sprite]);
