@@ -43,9 +43,11 @@ class SignaledGenerator implements GeneratorInterface
 			foreach ($signal->getPackages() as $package)
 			{
 				$this->out(sprintf('PKG: %s', get_class($package)));
+				$num = count((new Helpers\ImageFinder())->find([$package]));
 				$data = [
 					'CLS: ' . $package->getConstantsClass(),
-					'DIR: ' . PHP_EOL . implode(PHP_EOL, $package->getPaths())
+					'NUM: ' . $num,
+					'DIR: ' . PHP_EOL . implode(PHP_EOL, $package->getPaths()),
 				];
 				$this->out(implode(PHP_EOL, $data));
 				$this->out('');

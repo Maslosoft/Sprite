@@ -14,6 +14,7 @@
 namespace Maslosoft\Sprite\Signals;
 
 use Maslosoft\Signals\Interfaces\SignalInterface;
+use Maslosoft\Signals\Interfaces\SlotAwareInterface;
 use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 use Maslosoft\Sprite\Models\Package;
 
@@ -25,7 +26,7 @@ use Maslosoft\Sprite\Models\Package;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class SpritePackage implements SignalInterface, \Maslosoft\Signals\Interfaces\SlotAwareInterface
+class SpritePackage implements SignalInterface, SlotAwareInterface
 {
 
 	/**

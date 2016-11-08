@@ -46,6 +46,12 @@ class Package implements SpritePackageInterface
 	public $constantsClass = '';
 
 	/**
+	 * Set this to create class if not yet exists
+	 * @var string
+	 */
+	public $constantsClassPath = '';
+
+	/**
 	 * Define any valid PHP callback to customize transformation constant names.
 	 * By default they are camelized, ie:
 	 * ```
@@ -131,16 +137,21 @@ class Package implements SpritePackageInterface
 	 * /var/www/some/application/assets/32/
 	 * ```
 	 * This will result in icons with two prefixes of `16` and `32`.
-	 * This is usefull for icon sizing. So when using icon, one would know
+	 * This is useful for icon sizing. So when using icon, one would know
 	 * it's size just by the icon name.
-	 * 
+	 *
 	 * @var string[]
 	 */
-	public $paths = '';
+	public $paths = [];
 
 	public function getConstantsClass()
 	{
 		return $this->constantsClass;
+	}
+
+	public function getConstantsClassPath()
+	{
+		return $this->constantsClassPath;
 	}
 
 	public function getConstantsConverter()
@@ -166,6 +177,12 @@ class Package implements SpritePackageInterface
 	public function setConstantsClass($constantsClass)
 	{
 		$this->constantsClass = $constantsClass;
+		return $this;
+	}
+
+	public function setConstantsClassPath($constantsClassPath)
+	{
+		$this->constantsClassPath = $constantsClassPath;
 		return $this;
 	}
 

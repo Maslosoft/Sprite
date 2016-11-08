@@ -8,9 +8,11 @@
 
 namespace Maslosoft\Sprite\Helpers;
 
+use Maslosoft\MiniView\MiniView;
 use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 use Maslosoft\Sprite\Models\ConstClass;
 use Maslosoft\Sprite\Models\SpriteImage;
+use RuntimeException;
 
 /**
  * ConstantsFactory
@@ -30,10 +32,10 @@ class ConstantsFactory
 		$className = '';
 		$classes = [];
 
-		foreach ($sprites as $image)
+		foreach ($sprites as $sprite)
 		{
-			/* @var $image SpriteImage */
-			foreach ($image->packages as $package)
+			/* @var $sprite SpriteImage */
+			foreach ($sprite->packages as $package)
 			{
 				/* @var $package SpritePackageInterface */
 				$className = $package->getConstantsClass();
@@ -44,19 +46,16 @@ class ConstantsFactory
 					continue;
 				}
 
-				// Skip if class not found
-				if (!class_exists($className))
-				{
-					continue;
-				}
-				if (empty($classes[$className]))
+				ConstantsFileCreator::generate($package);
+
+				// NOTE: Skip if class exists checks,
+				// as it will load class into memory too early!
+
+				if (!array_key_exists($className, $classes))
 				{
 					$classes[$className] = new ConstClass($package);
 				}
-			}
-			if (!empty($classes[$className]))
-			{
-				$classes[$className]->add($image);
+				$classes[$className]->add($sprite);
 			}
 		}
 		return $classes;
