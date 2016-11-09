@@ -8,11 +8,9 @@
 
 namespace Maslosoft\Sprite\Helpers;
 
-use Maslosoft\MiniView\MiniView;
 use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 use Maslosoft\Sprite\Models\ConstClass;
 use Maslosoft\Sprite\Models\SpriteImage;
-use RuntimeException;
 
 /**
  * ConstantsFactory
@@ -29,7 +27,6 @@ class ConstantsFactory
 	 */
 	public static function create($sprites)
 	{
-		$className = '';
 		$classes = [];
 
 		foreach ($sprites as $sprite)

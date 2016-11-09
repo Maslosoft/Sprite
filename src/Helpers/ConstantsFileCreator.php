@@ -9,7 +9,7 @@
 namespace Maslosoft\Sprite\Helpers;
 
 use Maslosoft\MiniView\MiniView;
-use Maslosoft\Sprite\Models\Package;
+use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 use RuntimeException;
 
 /**
@@ -20,7 +20,7 @@ use RuntimeException;
 class ConstantsFileCreator
 {
 
-	public static function generate(Package $package)
+	public static function generate(SpritePackageInterface $package)
 	{
 		$path = $package->getConstantsClassPath();
 
