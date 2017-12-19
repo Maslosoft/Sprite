@@ -43,7 +43,7 @@ class SignaledGenerator implements GeneratorInterface
 			foreach ($signal->getPackages() as $package)
 			{
 				$this->out(sprintf('PKG: %s', get_class($package)));
-				$num = count((new Helpers\ImageFinder())->find([$package]));
+				$num = count((new Helpers\ImageFinder)->find([$package]));
 				$data = [
 					'CLS: ' . $package->getConstantsClass(),
 					'NUM: ' . $num,

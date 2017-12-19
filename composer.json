@@ -19,22 +19,28 @@
 	],
 	"autoload": {
         "psr-4": {
-			  "Maslosoft\\Sprite\\" : "src"
+			  "Maslosoft\\Sprite\\" : "src",
+        	  "Maslosoft\\SpriteTest\\Extensions\\": "tests/extensions"
         }
     },
+	"autoload-dev": {
+		"psr-4": {
+			"Maslosoft\\SpriteTest\\Models\\": "tests/models"
+		}
+	},
 	"require": {
 		"maslosoft/miniview": "*",
 		"maslosoft/embedi": "*",
 		"maslosoft/signals": "*",
-		"symfony/console": "^3",
+		"symfony/console": ">=2.7 <5.0",
 		"maslosoft/sitcom": "*",
-		"symfony/finder": "^3",
+		"symfony/finder": ">=2.7 <5.0",
 		"maslosoft/sigurd": "*",
 		"psr/log": "^1",
 		"maslosoft/cli-shared": "*"
 	},
 	"require-dev": {
-		"maslosoft/sprite-test": "@dev",
+		"codeception/codeception": "^2",
 		"maslosoft/hedron": "*"
 	}
 }

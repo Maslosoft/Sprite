@@ -29,7 +29,7 @@ class ImageFinder
 	/**
 	 *
 	 * @param SpritePackageInterface[]|Package[] $packages
-	 * @return SpriteImage
+	 * @return SpriteImage[]
 	 */
 	public function find($packages)
 	{
