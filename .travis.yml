@@ -19,9 +19,9 @@ install:
   # Required for PHP 5
   - composer update
   - composer install --prefer-dist --dev --no-interaction
-before_script:
-  - cd $TRAVIS_BUILD_DIR
   - chmod 777 generated
   - chmod 777 runtime
+before_script:
+  - cd $TRAVIS_BUILD_DIR
 script: 
   - bash run-travis
