@@ -14,13 +14,13 @@ cache:
   directories:
     - vendor
 install:
+  - chmod 777 generated
+  - chmod 777 runtime
   # Remove possible obsolete tests
   - bash -c 'if [ -e "vendor/maslosoft/sprite-test" ]; then rm -rf "vendor/maslosoft/sprite-test"; fi;'
   # Required for PHP 5
   - composer update
   - composer install --prefer-dist --dev --no-interaction
-  - chmod 777 generated
-  - chmod 777 runtime
 before_script:
   - cd $TRAVIS_BUILD_DIR
 script: 
