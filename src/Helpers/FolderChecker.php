@@ -14,6 +14,8 @@
 namespace Maslosoft\Sprite\Helpers;
 
 use Maslosoft\Sprite\Models\Configuration;
+use RuntimeException;
+use UnexpectedValueException;
 
 /**
  * FolderChecker
