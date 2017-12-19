@@ -21,5 +21,7 @@ install:
   - composer install --prefer-dist --dev --no-interaction
 before_script:
   - cd $TRAVIS_BUILD_DIR
+  - chmod 777 generated
+  - chmod 777 runtime
 script: 
   - bash run-travis
