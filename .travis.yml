@@ -16,6 +16,8 @@ cache:
 install:
   - pwd
   - ls
+  - bash -c 'if [ ! -e "generated" ]; then mkdir "generated"; fi;'
+  - bash -c 'if [ ! -e "runtime" ]; then mkdir "runtime"; fi;'
   - chmod 777 generated
   - chmod 777 runtime
   # Remove possible obsolete tests
