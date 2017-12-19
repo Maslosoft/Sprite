@@ -14,20 +14,19 @@ class SpriteImageTest extends \Codeception\TestCase\Test
 	protected $tester;
 
 	// tests
-	public function testIfwillProperlyCreateSpriteImage()
+	public function testIfWillProperlyCreateSpriteImage()
 	{
-		$path = ASSETS_DIR . '/models';
+		$path = ASSETS_DIR . '/models/sprite-image';
 
 		// Let finder create SplFileInfo
 		$finder = new Finder();
 		$finder->in($path);
 		$finder->name('logo-60x100.png');
 
-		// Should be one file
-		$this->assertSame(1, $finder->count());
+		$this->assertSame(1, $finder->count(), 'That one file was found');
 		foreach ($finder as $fileInfo)
 		{
-			// empty
+			break;
 		}
 
 		$si = new SpriteImage($path, $fileInfo);
@@ -43,7 +42,7 @@ class SpriteImageTest extends \Codeception\TestCase\Test
 
 		$this->assertSame('png', $si->type);
 
-		$this->assertSame('sprite-image-icons-logo-60x100', $si->name);
+		$this->assertSame('icons-logo-60x100', $si->name);
 	}
 
 }

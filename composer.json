@@ -30,6 +30,7 @@
 	},
 	"require": {
 		"maslosoft/miniview": "*",
+		"latte/latte": ">=1.0 <3.0",
 		"maslosoft/embedi": "*",
 		"maslosoft/signals": "*",
 		"symfony/console": ">=2.7 <5.0",

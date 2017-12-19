@@ -10,7 +10,6 @@ namespace Maslosoft\SpriteTest\Extensions;
 
 use Codeception\Event\TestEvent;
 use Codeception\Platform\Extension;
-use Maslosoft\Sprite\Generator;
 
 /**
  * SpriteWipe
@@ -27,9 +26,7 @@ class SpriteWipe extends Extension
 
 	public function testBefore(TestEvent $e)
 	{
-		$dir = 'generated';
-		@unlink(sprintf('%s/sprite.css', $dir));
-		@unlink(sprintf('%s/sprite.png', $dir));
+		exec('rm -rf generated/sprite*');
 	}
 
 }
