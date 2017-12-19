@@ -14,6 +14,8 @@ cache:
   directories:
     - vendor
 install:
+  - pwd
+  - ls
   - chmod 777 generated
   - chmod 777 runtime
   # Remove possible obsolete tests
