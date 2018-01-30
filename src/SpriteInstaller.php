@@ -13,7 +13,7 @@
 
 namespace Maslosoft\Sprite;
 
-use Maslosoft\Ilmatar\Components\Install\InstallersBase;
+use Maslosoft\Components\Install\InstallersBase;
 
 /**
  * Sprite installer
