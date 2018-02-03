@@ -66,6 +66,7 @@ class CompoundGenerator extends Configuration implements GeneratorInterface, Log
 	{
 		$di = new EmbeDi();
 		$sprites = (new ImageFinder())->find($this->packages);
+
 		$collection = new Collection($sprites);
 		foreach ($this->generators as $generatorConfig)
 		{

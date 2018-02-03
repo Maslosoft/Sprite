@@ -76,6 +76,12 @@ class Collection
 
 	private function createGroups()
 	{
+		/**
+		 * TODO Sprites should be regrouped by hash,
+		 * however packages need to be merged too.
+		 * Without hash grouping resulting images
+		 * and CSS might contain duplicates.
+		 */
 		$imagesCount = count($this->sprites);
 		$splitFactor = floor(sqrt($imagesCount));
 		$split = ceil($imagesCount / $splitFactor);
