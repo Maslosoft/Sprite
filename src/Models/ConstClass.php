@@ -8,6 +8,7 @@
 
 namespace Maslosoft\Sprite\Models;
 
+use function ksort;
 use Maslosoft\Sprite\Helpers\Namer;
 use Maslosoft\Sprite\Interfaces\SpritePackageInterface;
 use ReflectionClass;
@@ -100,6 +101,7 @@ class ConstClass
 		$item->name = Namer::nameConstant($this->package, $sprite);
 		$item->value = Namer::nameCssClass($this->package, $sprite);
 		$this->constants[$item->name] = $item;
+		ksort($this->constants);
 	}
 
 	public function __toString()
