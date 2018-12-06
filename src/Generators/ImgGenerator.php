@@ -46,7 +46,7 @@ class ImgGenerator implements SpriteGeneratorInterface
 			$top = 0;
 			foreach ($group->sprites as $image)
 			{
-				$img = '';
+				$img = null;
 				$path = $image->getFullPath();
 				switch ($image->type)
 				{
@@ -60,7 +60,7 @@ class ImgGenerator implements SpriteGeneratorInterface
 						$img = imagecreatefromgif($path);
 						break;
 					default:
-						continue;
+						$img = null;
 				}
 				if (empty($img))
 				{
