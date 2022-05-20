@@ -78,26 +78,26 @@ class SpriteImage implements ArrayAccess
 	 * CSS sprite name
 	 * @var string
 	 */
-	public $name = '';
+	public string $name = '';
 
 	/**
 	 * Image checksum
 	 * @var string
 	 */
-	public $hash = '';
+	public string $hash = '';
 
 	/**
 	 * Packages, to which this sprite belongs
 	 * @var SpritePackageInterface[]
 	 */
-	public $packages = [];
+	public array $packages = [];
 
 	/**
 	 * Create sprite image data holder
-	 * @param string $path
+	 * @param string      $path
 	 * @param SplFileInfo $fileInfo
 	 */
-	public function __construct($path, SplFileInfo $fileInfo)
+	public function __construct(string $path, SplFileInfo $fileInfo)
 	{
 		$this->basePath = $path;
 		$this->info = $fileInfo;
@@ -125,7 +125,7 @@ class SpriteImage implements ArrayAccess
 		$name = str_replace(['/', '\\', '_'], '-', $this->info->getRelativePathname());
 
 		// Remove leading `-`
-		$name = preg_replace('~^-*~', '', $name);
+		$name = ltrim($name, '-');
 
 		// Remove double dashes
 		$name = preg_replace('~-+~', '-', $name);
@@ -134,12 +134,12 @@ class SpriteImage implements ArrayAccess
 		$name = preg_replace("~\.$ext$~", '', $name);
 
 		// Replace dots with -
-		$name = preg_replace('~\.~', '-', $name);
+		$name = str_replace(".", '-', $name);
 
 		$this->name = $name;
 	}
 
-	public function isSquare()
+	public function isSquare(): bool
 	{
 		return (int) $this->width === (int) $this->height;
 	}
@@ -148,7 +148,7 @@ class SpriteImage implements ArrayAccess
 	 * Get full path to image
 	 * @return string
 	 */
-	public function getFullPath()
+	public function getFullPath(): string
 	{
 		return $this->info->getRealPath();
 	}

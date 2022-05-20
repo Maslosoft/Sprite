@@ -49,18 +49,18 @@ class ImageFinder
 					$sprite = new SpriteImage($path, $fileInfo);
 
 					/**
-					 * NOTE Sprites must be groupped by path, not hash
+					 * NOTE Sprites must be grouped by path, not hash
 					 * as order of packages matters here or could
 					 * lead to generation of wrong constants.
 					 */
 					$key = $sprite->getFullPath();
 					if (!array_key_exists($key, $sprites))
 					{
-						// Add new sprite to set if hash does not exists
+						// Add new sprite to set if hash does not exist
 						$sprites[$key] = $sprite;
 					}
 					// Sprite with selected hash exists, just add package
-					if (!in_array($package, $sprites[$key]->packages))
+					if (!in_array($package, $sprites[$key]->packages, true))
 					{
 						$sprites[$key]->packages[] = $package;
 					}
