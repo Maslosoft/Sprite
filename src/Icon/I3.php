@@ -13,9 +13,14 @@ namespace Maslosoft\Sprite\Icon;
  * 
  * @link http://maslosoft.com/sprite/
  */
-class I5
+class I3
 {
 
 	const BlurredLogo60x100 = 'icon-blurred-logo-60x100';
+	const DeeperBlurredLogo60x100 = 'icon-deeper-blurred-logo-60x100';
+	const DeeperLogo60x100 = 'icon-deeper-logo-60x100';
+	const DeeperLogo60x120 = 'icon-deeper-logo-60x120';
+	const Logo100 = 'icon-logo-100';
+	const Logo50 = 'icon-logo-50';
 
 }

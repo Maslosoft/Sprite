@@ -2,6 +2,7 @@
 
 /**
  * Auto generated - any changes might be lost
+ * @generated
  */
 
 namespace Maslosoft\Sprite\Icon;
