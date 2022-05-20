@@ -31,18 +31,20 @@
 	},
 	"require": {
 		"maslosoft/miniview": "*",
-		"latte/latte": ">=1.0 <3.0",
+		"latte/latte": ">=1.0 <4.0",
 		"maslosoft/embedi": "*",
 		"maslosoft/signals": "*",
 		"symfony/console": ">=2.7 <5.0",
 		"maslosoft/sitcom": "*",
 		"symfony/finder": ">=2.7 <5.0",
 		"maslosoft/sigurd": "*",
-		"psr/log": "^1",
+		"psr/log": "^1|^2|^3",
 		"maslosoft/cli-shared": "*"
 	},
 	"require-dev": {
-		"codeception/codeception": "^2",
-		"maslosoft/hedron": "*"
+		"codeception/codeception": "^4",
+		"codeception/module-asserts": "^2",
+		"maslosoft/hedron": "*",
+		"monolog/monolog": "^3"
 	}
 }

@@ -7,10 +7,13 @@ paths:
 extensions:
     enabled:
         - Maslosoft\SpriteTest\Extensions\SpriteWipe
+        - Codeception\Extension\RunFailed
+        - Codeception\Extension\Logger:
+              max_files: 5
 settings:
-    bootstrap: _bootstrap.php
     colors: true
     memory_limit: 1024M
+bootstrap: _bootstrap.php
 coverage:
     enabled: true
     remote: false
