@@ -2,6 +2,7 @@
 
 namespace Helpers;
 
+use Codeception\TestCase\Test;
 use Maslosoft\Sprite\Helpers\ConstantsFactory;
 use Maslosoft\Sprite\Helpers\ImageFinder;
 use Maslosoft\Sprite\Icon\I;
@@ -11,7 +12,7 @@ use ReflectionClass;
 use UnitTester;
 use const ASSETS_DIR;
 
-class ConstantsFactoryTest extends \Codeception\TestCase\Test
+class ConstantsFactoryTest extends Test
 {
 
 	/**
@@ -20,7 +21,7 @@ class ConstantsFactoryTest extends \Codeception\TestCase\Test
 	protected $tester;
 
 	// tests
-	public function testIfWillCreateConstClassFile()
+	public function testIfWillCreateConstClassFile(): void
 	{
 		$path = ASSETS_DIR . '/helpers/image-finder';
 
@@ -38,18 +39,18 @@ class ConstantsFactoryTest extends \Codeception\TestCase\Test
 		$packages = [$package];
 		$sprites = (new ImageFinder)->find($packages);
 
-		// Should be 5 images
-		$this->assertSame(5, count($sprites));
+		// Should be 6 images
+		$this->assertCount(6, $sprites);
 
 		$consts = ConstantsFactory::create($sprites);
 
 //		codecept_debug($consts);
 
 		$this->assertFileExists($classFile);
-		$this->assertSame(1, count($consts), 'That one constants definition class was created');
+		$this->assertCount(1, $consts, 'That one constants definition class was created');
 	}
 
-	public function testIfWillCreateConstClassInstance()
+	public function testIfWillCreateConstClassInstance(): void
 	{
 		$path = ASSETS_DIR . '/helpers/image-finder';
 
@@ -59,17 +60,17 @@ class ConstantsFactoryTest extends \Codeception\TestCase\Test
 		$packages = [$package];
 		$sprites = (new ImageFinder)->find($packages);
 
-		// Should be 5 images
-		$this->assertSame(5, count($sprites));
+		// Should be 6 images
+		$this->assertCount(6, $sprites);
 
 		$consts = ConstantsFactory::create($sprites);
 
 //		codecept_debug($consts);
 
-		$this->assertSame(1, count($consts), 'That one constants definition class was created');
+		$this->assertCount(1, $consts, 'That one constants definition class was created');
 	}
 
-	public function testIfWillCreateConstClassInstanceWithTwoPackages()
+	public function testIfWillCreateConstClassInstanceWithTwoPackages(): void
 	{
 		$path = ASSETS_DIR . '/helpers/image-finder';
 
@@ -85,19 +86,19 @@ class ConstantsFactoryTest extends \Codeception\TestCase\Test
 		$packages = [$package, $package2];
 		$sprites = (new ImageFinder)->find($packages);
 
-		// Should be 9 images
-		$this->assertSame(9, count($sprites));
+		// Should be 10 images
+		$this->assertCount(10, $sprites);
 
 		$consts = ConstantsFactory::create($sprites);
 
 
-		$this->assertSame(1, count($consts), 'That one constants definition class was created');
+		$this->assertCount(1, $consts, 'That one constants definition class was created');
 
 		$const = array_pop($consts);
 		/* @var $const ConstClass */
 		$this->assertInstanceOf(ConstClass::class, $const);
 
-		$this->assertSame(4, count($const->constants), "That has constants for 4 icons, only from `$path2`");
+		$this->assertCount(4, $const->constants, "That has constants for 4 icons, only from `$path2`");
 	}
 
 }

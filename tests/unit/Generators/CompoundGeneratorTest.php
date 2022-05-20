@@ -2,6 +2,7 @@
 
 namespace Helpers;
 
+use Codeception\TestCase\Test;
 use Maslosoft\Sprite\CompoundGenerator;
 use Maslosoft\Sprite\Icon\I;
 use Maslosoft\Sprite\Icon\I4;
@@ -11,7 +12,7 @@ use ReflectionObject;
 use UnitTester;
 use const ASSETS_DIR;
 
-class CompoundGeneratorTest extends \Codeception\TestCase\Test
+class CompoundGeneratorTest extends Test
 {
 
 	/**
@@ -20,7 +21,7 @@ class CompoundGeneratorTest extends \Codeception\TestCase\Test
 	protected $tester;
 
 	// tests
-	public function testIfGenerateAllWhatsNeeded()
+	public function testIfGenerateAllWhatsNeeded(): void
 	{
 		$generator = new CompoundGenerator();
 
@@ -62,8 +63,9 @@ class CompoundGeneratorTest extends \Codeception\TestCase\Test
 		codecept_debug($info1->getConstants());
 		codecept_debug($info1->getFileName());
 
-		$this->assertSame(5, count($info1->getConstants()));
-		$this->assertSame(4, count($info2->getConstants()));
+		$constants1 = $info1->getConstants();
+		$this->assertCount(6, $constants1);
+		$this->assertCount(4, $info2->getConstants());
 	}
 
 }

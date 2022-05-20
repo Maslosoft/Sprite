@@ -6,4 +6,4 @@ use Maslosoft\Sprite\Generator;
 
 define('ASSETS_DIR', realpath(__DIR__ . '/assets'));
 
-echo "Sprite" . (new Generator)->getVersion() . PHP_EOL;
+echo "Sprite " . (new Generator)->getVersion() . PHP_EOL;

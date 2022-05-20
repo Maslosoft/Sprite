@@ -2,13 +2,15 @@
 
 namespace Helpers;
 
+use Codeception\TestCase\Test;
 use Maslosoft\Sprite\Helpers\ImageFinder;
 use Maslosoft\Sprite\Models\Package;
 use Maslosoft\Sprite\Models\SpriteImage;
 use UnitTester;
+use function count;
 use const ASSETS_DIR;
 
-class ImageFinderTest extends \Codeception\TestCase\Test
+class ImageFinderTest extends Test
 {
 
 	/**
@@ -17,7 +19,7 @@ class ImageFinderTest extends \Codeception\TestCase\Test
 	protected $tester;
 
 	// tests
-	public function testIfWillFindImagesWithoutDuplicatesWithOnePackage()
+	public function testIfWillFindImagesWithoutDuplicatesWithOnePackage(): void
 	{
 		$path = ASSETS_DIR . '/helpers/image-finder';
 
@@ -26,19 +28,18 @@ class ImageFinderTest extends \Codeception\TestCase\Test
 		$packages = [$package];
 		$sprites = (new ImageFinder)->find($packages);
 
-		// Should be 5 images
-		$this->assertSame(5, count($sprites));
+		// Should be 6 images
+		$this->assertCount(6, $sprites);
 
 		foreach ($sprites as $sprite)
 		{
 			$this->assertInstanceOf(SpriteImage::class, $sprite);
-			$packages = count($sprite->packages);
-			$this->assertSame(1, $packages);
+			$this->assertCount(1, $sprite->packages);
 			$this->assertInstanceOf(Package::class, $sprite->packages[0]);
 		}
 	}
 
-	public function testIfWillFindImagesWithTwoPackagesAndOneContainingConstClass()
+	public function testIfWillFindImagesWithTwoPackagesAndOneContainingConstClass(): void
 	{
 		$path = ASSETS_DIR . '/helpers/image-finder';
 
@@ -54,8 +55,8 @@ class ImageFinderTest extends \Codeception\TestCase\Test
 
 		$sprites = (new ImageFinder)->find($packages);
 
-		// Should be 9 images
-		$this->assertSame(9, count($sprites));
+		// Should be 10 images
+		$this->assertCount(10, $sprites);
 
 		$withConstants = 0;
 		foreach ($sprites as $sprite)
@@ -74,7 +75,7 @@ class ImageFinderTest extends \Codeception\TestCase\Test
 		$this->assertSame(4, $withConstants, 'That there are 4 packages with constants');
 	}
 
-	public function testIfWillFindImagesWithoutDuplicatesWithTwoPackages()
+	public function testIfWillFindImagesWithoutDuplicatesWithTwoPackages(): void
 	{
 		$path1 = ASSETS_DIR . '/helpers/image-finder';
 		$path2 = ASSETS_DIR . '/helpers/image-finder/deeper';
@@ -88,8 +89,8 @@ class ImageFinderTest extends \Codeception\TestCase\Test
 		$packages = [$package1, $package2];
 		$sprites = (new ImageFinder)->find($packages);
 
-		// Should be 5 images
-		$this->assertSame(5, count($sprites));
+		// Should be 6 images
+		$this->assertSame(6, count($sprites));
 
 		foreach ($sprites as $sprite)
 		{
