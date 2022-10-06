@@ -2,7 +2,7 @@
 
 namespace Helpers;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit;
 use Maslosoft\Sprite\Helpers\ImageFinder;
 use Maslosoft\Sprite\Models\Package;
 use Maslosoft\Sprite\Models\SpriteImage;
@@ -10,7 +10,7 @@ use UnitTester;
 use function count;
 use const ASSETS_DIR;
 
-class ImageFinderTest extends Test
+class ImageFinderTest extends Unit
 {
 
 	/**

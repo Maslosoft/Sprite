@@ -2,14 +2,16 @@
 
 namespace Models;
 
+use Codeception\Test\Unit;
 use Maslosoft\Sprite\Models\SpriteImage;
 use Symfony\Component\Finder\Finder;
+use UnitTester;
 
-class SpriteImageTest extends \Codeception\TestCase\Test
+class SpriteImageTest extends Unit
 {
 
 	/**
-	 * @var \UnitTester
+	 * @var UnitTester
 	 */
 	protected $tester;
 

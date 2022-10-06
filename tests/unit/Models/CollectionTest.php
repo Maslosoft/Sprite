@@ -2,7 +2,7 @@
 
 namespace Models;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit;
 use Maslosoft\Sprite\Helpers\ImageFinder;
 use Maslosoft\Sprite\Models\Collection;
 use Maslosoft\Sprite\Models\Group;
@@ -11,7 +11,7 @@ use Maslosoft\Sprite\Models\SpriteImage;
 use UnitTester;
 use const ASSETS_DIR;
 
-class CollectionTest extends Test
+class CollectionTest extends Unit
 {
 
 	/**

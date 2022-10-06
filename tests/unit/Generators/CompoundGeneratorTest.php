@@ -2,7 +2,7 @@
 
 namespace Helpers;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit;
 use Maslosoft\Sprite\CompoundGenerator;
 use Maslosoft\Sprite\Icon\I;
 use Maslosoft\Sprite\Icon\I4;
@@ -12,7 +12,7 @@ use ReflectionObject;
 use UnitTester;
 use const ASSETS_DIR;
 
-class CompoundGeneratorTest extends Test
+class CompoundGeneratorTest extends Unit
 {
 
 	/**

@@ -2,15 +2,17 @@
 
 namespace Helpers;
 
+use Codeception\Test\Unit;
 use Maslosoft\Sprite\Helpers\ImageSorter;
 use Maslosoft\Sprite\Models\SpriteImage;
 use Symfony\Component\Finder\Finder;
+use UnitTester;
 
-class ImageSorterTest extends \Codeception\TestCase\Test
+class ImageSorterTest extends Unit
 {
 
 	/**
-	 * @var \UnitTester
+	 * @var UnitTester
 	 */
 	protected $tester;
 

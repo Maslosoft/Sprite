@@ -2,7 +2,7 @@
 
 namespace Helpers;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit;
 use Maslosoft\Sprite\Helpers\ConstantsFactory;
 use Maslosoft\Sprite\Helpers\ImageFinder;
 use Maslosoft\Sprite\Icon\I;
@@ -12,7 +12,7 @@ use ReflectionClass;
 use UnitTester;
 use const ASSETS_DIR;
 
-class ConstantsFactoryTest extends Test
+class ConstantsFactoryTest extends Unit
 {
 
 	/**
