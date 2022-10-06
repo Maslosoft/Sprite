@@ -43,7 +43,6 @@
 		"symfony/console": ">=2.7 <=6",
 		"maslosoft/sitcom": "*",
 		"symfony/finder": ">=2.7 <=6",
-		"maslosoft/sigurd": "*",
 		"psr/log": "^1|^2|^3",
 		"maslosoft/cli-shared": "*"
 	},

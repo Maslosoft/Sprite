@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a8bf58c1616a1ba8fc6a7483c1f9117",
+    "content-hash": "80eaaa782975738ed28e677dd2948565",
     "packages": [
         {
             "name": "latte/latte",
@@ -483,55 +483,6 @@
                 "source": "https://github.com/Maslosoft/Signals/tree/4.0.3"
             },
             "time": "2022-10-06T16:46:33+00:00"
-        },
-        {
-            "name": "maslosoft/sigurd",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Maslosoft/Sigurd.git",
-                "reference": "14445f4986d40a00f1a52e943a9842aab19212f1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Sigurd/zipball/14445f4986d40a00f1a52e943a9842aab19212f1",
-                "reference": "14445f4986d40a00f1a52e943a9842aab19212f1",
-                "shasum": ""
-            },
-            "require": {
-                "maslosoft/addendum": "*",
-                "maslosoft/signals": "*",
-                "maslosoft/sitcom": "*"
-            },
-            "require-dev": {
-                "maslosoft/hedron": "*"
-            },
-            "bin": [
-                "sigurd"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Maslosoft\\Sigurd\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "AGPL",
-                "Commercial"
-            ],
-            "authors": [
-                {
-                    "name": "Peter Maselkowski",
-                    "email": "pmaselkowski@gmail.com"
-                }
-            ],
-            "description": "Signals based build system",
-            "support": {
-                "issues": "https://github.com/Maslosoft/Sigurd/issues",
-                "source": "https://github.com/Maslosoft/Sigurd/tree/master"
-            },
-            "time": "2016-08-22T18:08:53+00:00"
         },
         {
             "name": "maslosoft/sitcom",
