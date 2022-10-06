@@ -160,7 +160,7 @@ class SpriteImage implements ArrayAccess
 	 * @param string $offset
 	 * @return bool
 	 */
-	public function offsetExists($offset)
+	public function offsetExists($offset): bool
 	{
 		return isset($this->$offset);
 	}
@@ -170,7 +170,7 @@ class SpriteImage implements ArrayAccess
 	 * @param string $offset
 	 * @return mixed
 	 */
-	public function offsetGet($offset)
+	public function offsetGet($offset): mixed
 	{
 		return $this->$offset;
 	}
@@ -180,7 +180,7 @@ class SpriteImage implements ArrayAccess
 	 * @param string $offset
 	 * @param mixed $value
 	 */
-	public function offsetSet($offset, $value)
+	public function offsetSet($offset, $value): void
 	{
 		$this->$offset = $value;
 	}
@@ -189,7 +189,7 @@ class SpriteImage implements ArrayAccess
 	 * Unset offset value
 	 * @param string $offset
 	 */
-	public function offsetUnset($offset)
+	public function offsetUnset($offset): void
 	{
 		unset($this->$offset);
 	}
