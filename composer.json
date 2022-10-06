@@ -51,7 +51,6 @@
 		"roave/security-advisories": "dev-latest",
 		"codeception/codeception": "^5",
 		"codeception/module-asserts": "^3",
-		"maslosoft/hedron": "*",
 		"monolog/monolog": "^3"
 	}
 }
