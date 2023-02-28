@@ -48,11 +48,18 @@ class CompoundGenerator extends Configuration implements GeneratorInterface, Log
 
 		$config = new ConfigReader($configName);
 		$di = EmbeDi::fly($configName);
-		$di->apply($config->toArray(), $this);
-		$di->configure($this);
-		if (is_string($this->logger))
+		$cfg = $config->toArray();
+		// Workaround for obsolete logger class provided as string
+		$loggerClass = '';
+		if(array_key_exists('logger', $cfg) && is_string($cfg['logger']))
 		{
-			$loggerClass = $this->logger;
+			$loggerClass = $cfg['logger'];
+			unset($cfg['logger']);
+		}
+		$di->apply($cfg, $this);
+		$di->configure($this);
+		if (!empty($loggerClass))
+		{
 			$this->logger = new $loggerClass;
 		}
 	}
