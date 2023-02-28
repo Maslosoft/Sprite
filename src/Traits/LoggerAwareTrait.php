@@ -20,6 +20,7 @@ use Psr\Log\NullLogger;
 /**
  * LoggerAwareTrait
  *
+ * @see LoggerAwareInterface
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
 trait LoggerAwareTrait
@@ -29,17 +30,16 @@ trait LoggerAwareTrait
 	 * Logger instance
 	 * @var LoggerInterface
 	 */
-	public $logger;
+	public LoggerInterface $logger;
 
 	/**
 	 * Set logger
 	 * @param LoggerInterface $logger
-	 * @return static
+	 * @return void
 	 */
-	public function setLogger(LoggerInterface $logger)
+	public function setLogger(LoggerInterface $logger): void
 	{
 		$this->logger = $logger;
-		return $this;
 	}
 
 	/**
