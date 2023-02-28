@@ -9,7 +9,7 @@
 namespace Maslosoft\SpriteTest\Extensions;
 
 use Codeception\Event\TestEvent;
-use Codeception\Platform\Extension;
+use Codeception\Extension;
 
 /**
  * SpriteWipe
@@ -20,11 +20,11 @@ class SpriteWipe extends Extension
 {
 
 	// list events to listen to
-	public static $events = [
+	public static array $events = [
 		'test.before' => 'testBefore',
 	];
 
-	public function testBefore(TestEvent $e)
+	public function testBefore(TestEvent $e): void
 	{
 		exec('rm -rf generated/sprite*');
 	}
