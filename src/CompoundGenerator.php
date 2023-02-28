@@ -35,13 +35,13 @@ class CompoundGenerator extends Configuration implements GeneratorInterface, Log
 
 	use LoggerAwareTrait;
 
-	const DefaultInstanceId = 'sprite';
+	public const DefaultInstanceId = 'sprite';
 
 	/**
 	 * Sprite packages
 	 * @var SpritePackageInterface[]
 	 */
-	private $packages = [];
+	private array $packages = [];
 
 	public function __construct($configName = self::DefaultInstanceId)
 	{
