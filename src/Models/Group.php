@@ -25,24 +25,24 @@ class Group
 	 * Images
 	 * @var SpriteImage[]
 	 */
-	public $sprites;
+	public array $sprites;
 
 	/**
 	 * Total width of group of sprites
 	 * @var int
 	 */
-	public $width = 0;
+	public int $width = 0;
 
 	/**
 	 * Total height of group of sprites
 	 * @var int
 	 */
-	public $height = 0;
+	public int $height = 0;
 
 	/**
 	 * Offset from left side of image
 	 * @var int
 	 */
-	public $offset = 0;
+	public int $offset = 0;
 
 }

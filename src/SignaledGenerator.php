@@ -25,9 +25,9 @@ use Maslosoft\Sprite\Signals\SpritePackage;
 class SignaledGenerator implements GeneratorInterface
 {
 
-	private $verbose = false;
+	private bool $verbose = false;
 
-	public function generate($verbose = false)
+	public function generate($verbose = false): void
 	{
 		$this->verbose = $verbose;
 		// Gather package signals

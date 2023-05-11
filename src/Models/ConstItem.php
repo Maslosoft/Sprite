@@ -16,7 +16,7 @@ namespace Maslosoft\Sprite\Models;
 class ConstItem
 {
 
-	public $name = '';
-	public $value = '';
+	public string $name = '';
+	public string $value = '';
 
 }

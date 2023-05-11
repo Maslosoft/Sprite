@@ -64,12 +64,12 @@ class CompoundGenerator extends Configuration implements GeneratorInterface, Log
 		}
 	}
 
-	public function add(SpritePackageInterface $package)
+	public function add(SpritePackageInterface $package): void
 	{
 		$this->packages[] = $package;
 	}
 
-	public function generate()
+	public function generate(): void
 	{
 		$di = new EmbeDi();
 		$sprites = (new ImageFinder())->find($this->packages);

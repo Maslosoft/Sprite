@@ -25,30 +25,30 @@ class ConstClass
 	 * Namespace
 	 * @var string
 	 */
-	public $ns = '';
+	public string $ns = '';
 
 	/**
 	 * Short name
 	 * @var string
 	 */
-	public $name = '';
+	public string $name = '';
 
 	/**
 	 * Constants
 	 * @var ConstItem[]
 	 */
-	public $constants = [];
+	public array $constants = [];
 
 	/**
 	 * Package
 	 * @var SpritePackageInterface
 	 */
-	private $package = null;
+	private SpritePackageInterface $package;
 
 	/**
 	 * @var string
 	 */
-	private $path = '';
+	private string $path;
 
 	public function __construct(SpritePackageInterface $package)
 	{
@@ -73,7 +73,7 @@ class ConstClass
 		}
 	}
 
-	public function getPath()
+	public function getPath(): string
 	{
 		return $this->path;
 	}
@@ -82,7 +82,7 @@ class ConstClass
 	 * Add constant from sprite, but only if in current package.
 	 * @param SpriteImage $sprite
 	 */
-	public function add(SpriteImage $sprite)
+	public function add(SpriteImage $sprite): void
 	{
 		$dest = $this->package->getConstantsClass();
 		foreach ($sprite->packages as $package)
@@ -95,7 +95,7 @@ class ConstClass
 		}
 	}
 
-	private function addSprite(SpriteImage $sprite)
+	private function addSprite(SpriteImage $sprite): void
 	{
 		$item = new ConstItem();
 		$item->name = Namer::nameConstant($this->package, $sprite);
