@@ -36,13 +36,15 @@
 		}
 	},
 	"require": {
+		"php": ">=8.2",
+		"ext-gd": "*",
 		"maslosoft/miniview": "*",
 		"latte/latte": ">=1.0 <4.0",
 		"maslosoft/embedi": "*",
 		"maslosoft/signals": "*",
-		"symfony/console": ">=2.7 <=6",
+		"symfony/console": ">=2.7 <=7",
 		"maslosoft/sitcom": "*",
-		"symfony/finder": ">=2.7 <=6",
+		"symfony/finder": ">=2.7 <=7",
 		"psr/log": "^1|^2|^3",
 		"maslosoft/cli-shared": "*"
 	},
