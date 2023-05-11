@@ -33,7 +33,7 @@ class Namer
 		{
 			if (!is_callable($converter, true))
 			{
-				throw new RuntimeException('Variable of type `%s` is not callable', get_type($converter));
+				throw new RuntimeException('Variable of type `%s` is not callable', get_debug_type($converter));
 			}
 			$params = [
 				$package,
@@ -59,7 +59,7 @@ class Namer
 		{
 			if (!is_callable($converter, true))
 			{
-				throw new RuntimeException('Variable of type `%s` is not callable', get_type($converter));
+				throw new RuntimeException('Variable of type `%s` is not callable', get_debug_type($converter));
 			}
 			$params = [
 				$package,
