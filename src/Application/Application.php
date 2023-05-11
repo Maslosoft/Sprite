@@ -30,7 +30,7 @@ class Application extends ConsoleApplication
 	 * Logo
 	 * font: slant
 	 */
-	const Logo = <<<LOGO
+	public const Logo = <<<LOGO
    _____            _ __
   / ___/____  _____(_) /____
   \__ \/ __ \/ ___/ / __/ _ \
@@ -47,7 +47,7 @@ LOGO;
 		$this->add(new SignalCommand);
 	}
 
-	public function getHelp()
+	public function getHelp(): string
 	{
 		return self::Logo . parent::getHelp();
 	}

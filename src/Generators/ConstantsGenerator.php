@@ -33,14 +33,14 @@ class ConstantsGenerator implements GeneratorInterface, CollectionAwareInterface
 	 * View instance
 	 * @var MiniView
 	 */
-	private $mv = null;
+	private MiniView $mv;
 
 	public function __construct()
 	{
 		$this->mv = new MiniView($this);
 	}
 
-	public function generate()
+	public function generate(): void
 	{
 		$collection = $this->getCollection();
 		$sprites = $collection->getSprites();

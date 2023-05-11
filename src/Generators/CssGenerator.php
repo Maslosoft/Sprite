@@ -35,14 +35,14 @@ class CssGenerator implements CssGeneratorInterface
 	 * View instance
 	 * @var MiniView
 	 */
-	private $mv = null;
+	private MiniView $mv;
 
 	public function __construct()
 	{
 		$this->mv = new MiniView($this);
 	}
 
-	public function generate()
+	public function generate(): void
 	{
 		$collection = $this->getCollection();
 		$config = $this->getConfig();

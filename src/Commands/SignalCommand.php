@@ -28,7 +28,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class SignalCommand extends ConsoleCommand implements AnnotatedInterface
 {
 
-	protected function configure()
+	protected function configure(): void
 	{
 		parent::configure();
 		$this->setName("signal");
@@ -46,9 +46,10 @@ EOT
 		);
 	}
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		(new SignaledGenerator)->generate(true);
+		return 0;
 	}
 
 	/**

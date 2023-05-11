@@ -28,7 +28,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class LocalCommand extends ConsoleCommand implements AnnotatedInterface
 {
 
-	protected function configure()
+	protected function configure(): void
 	{
 		parent::configure();
 		$this->setName("local");
@@ -46,16 +46,17 @@ EOT
 		);
 	}
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		(new Generator)->generate();
+		return 0;
 	}
 
 	/**
 	 * @SlotFor(Command)
 	 * @param Command $signal
 	 */
-	public function reacOn(Command $signal)
+	public function reacOn(Command $signal): void
 	{
 		$signal->add($this, 'sprite');
 	}

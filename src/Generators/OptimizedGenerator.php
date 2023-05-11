@@ -30,7 +30,7 @@ class OptimizedGenerator implements GeneratorInterface, ConfigurationAwareInterf
 	use ConfigurationAwareTrait,
 	  LoggerAwareTrait;
 
-	public function generate()
+	public function generate(): void
 	{
 		$config = $this->getConfig();
 		$dst = sprintf('%s/%s.png', $config->generatedPath, $config->basename);
