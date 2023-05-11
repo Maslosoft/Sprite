@@ -24,9 +24,9 @@ use UnexpectedValueException;
 class ImageSorter
 {
 
-	const SortWidth = 1;
-	const SortHeight = 2;
-	const SortSize = 4;
+	public const SortWidth = 1;
+	public const SortHeight = 2;
+	public const SortSize = 4;
 
 	/**
 	 * Sort SpriteImage array based on:
@@ -36,7 +36,7 @@ class ImageSorter
 	 * >> NOTE: It seems that best results are from sorting just by width
 	 * @param SpriteImage[] $sprites Array of sprite images
 	 */
-	public static function sort(& $sprites, $mode = self::SortWidth)
+	public static function sort(array & $sprites, $mode = self::SortWidth): void
 	{
 		$widths = [];
 		$heights = [];
@@ -47,7 +47,6 @@ class ImageSorter
 			{
 				throw new UnexpectedValueException('Expected `%s` got `%s`', SpriteImage::class, is_object($image) ? get_class($image) : gettype($image));
 			}
-			/* @var $image SpriteImage */
 			$widths[$key] = $image->width;
 			$heights[$key] = $image->height;
 			$sizes[$key] = $image->size;
@@ -72,7 +71,7 @@ class ImageSorter
 		// Finally push sprites array
 		$params[] = & $sprites;
 
-		call_user_func_array('array_multisort', $params);
+		array_multisort(...$params);
 	}
 
 }

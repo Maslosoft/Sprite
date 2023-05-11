@@ -25,7 +25,7 @@ class ConstantsFactory
 	 * @param SpriteImage[] $sprites
 	 * @return ConstClass[]
 	 */
-	public static function create($sprites)
+	public static function create(array $sprites): array
 	{
 		$classes = [];
 

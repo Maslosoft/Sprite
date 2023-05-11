@@ -25,7 +25,7 @@ use RuntimeException;
 class Namer
 {
 
-	public static function nameCssClass(SpritePackageInterface $package, SpriteImage $sprite)
+	public static function nameCssClass(SpritePackageInterface $package, SpriteImage $sprite): string
 	{
 		$prefix = $package->getIconPrefix();
 		$converter = $package->getCssClassNameConverter();
