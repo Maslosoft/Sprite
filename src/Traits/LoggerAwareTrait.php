@@ -29,24 +29,23 @@ trait LoggerAwareTrait
 	 * Logger instance
 	 * @var LoggerInterface
 	 */
-	public $logger;
+	public LoggerInterface $logger;
 
 	/**
 	 * Set logger
 	 * @param LoggerInterface $logger
-	 * @return static
+	 * @return void
 	 */
-	public function setLogger(LoggerInterface $logger)
+	public function setLogger(LoggerInterface $logger): void
 	{
 		$this->logger = $logger;
-		return $this;
 	}
 
 	/**
 	 * Get logger
 	 * @return LoggerInterface
 	 */
-	public function getLogger()
+	public function getLogger(): LoggerInterface
 	{
 		if (empty($this->logger))
 		{
