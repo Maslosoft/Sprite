@@ -9,7 +9,7 @@
 namespace Maslosoft\SpriteTest\Extensions;
 
 use Codeception\Event\TestEvent;
-use Codeception\Platform\Extension;
+use Codeception\Extension;
 
 /**
  * SpriteWipe

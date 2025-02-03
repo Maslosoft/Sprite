@@ -37,12 +37,12 @@
 	},
 	"require": {
 		"maslosoft/miniview": "*",
-		"latte/latte": ">=1.0 <4.0",
+		"latte/latte": ">=1.0",
 		"maslosoft/embedi": "*",
 		"maslosoft/signals": "*",
-		"symfony/console": ">=2.7 <=6",
+		"symfony/console": ">=2.7",
 		"maslosoft/sitcom": "*",
-		"symfony/finder": ">=2.7 <=6",
+		"symfony/finder": ">=2.7",
 		"psr/log": "^1|^2|^3",
 		"maslosoft/cli-shared": "*"
 	},
@@ -50,6 +50,6 @@
 		"roave/security-advisories": "dev-latest",
 		"codeception/codeception": "^5",
 		"codeception/module-asserts": "^3",
-		"monolog/monolog": "^3"
+		"monolog/monolog": "^3|^4|^5"
 	}
 }

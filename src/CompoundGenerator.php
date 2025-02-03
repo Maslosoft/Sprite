@@ -13,6 +13,7 @@
 
 namespace Maslosoft\Sprite;
 
+use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\Cli\Shared\ConfigReader;
 use Maslosoft\EmbeDi\EmbeDi;
 use Maslosoft\Sprite\Helpers\ImageFinder;
@@ -48,7 +49,14 @@ class CompoundGenerator extends Configuration implements GeneratorInterface, Log
 
 		$config = new ConfigReader($configName);
 		$di = EmbeDi::fly($configName);
-		$di->apply($config->toArray(), $this);
+		$loadedConfig = $config->toArray();
+		if(is_string($loadedConfig['logger']) && ClassChecker::exists($loadedConfig['logger']))
+		{
+			$loadedConfig['logger'] = [
+				'class' => $loadedConfig['logger'],
+			];
+		}
+		$di->apply($loadedConfig, $this);
 		$di->configure($this);
 		if (is_string($this->logger))
 		{
