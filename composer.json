@@ -1,55 +1,56 @@
 {
-	"name": "maslosoft/sprite",
-	"description": "Icons sprite generator with signals support",
-	"keywords": [
-		"sprite",
-		"sprites",
-		"icon",
-		"icons",
-		"yii"
-	],
-	"homepage": "https://maslosoft.com/sprite/",
-	"license": [
-		"AGPL-3.0-only",
-		"proprietary"
-	],
-	"authors": [
-		{
-			"name": "Peter Maselkowski",
-			"email": "pmaselkowski@gmail.com",
-			"homepage": "https://maslosoft.com",
-			"role": "Developer"
-		}
-	],
-	"bin": [
-		"sprite"
-	],
-	"autoload": {
-		"psr-4": {
-			"Maslosoft\\Sprite\\": "src",
-			"Maslosoft\\SpriteTest\\Extensions\\": "tests/extensions"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Maslosoft\\SpriteTest\\Models\\": "tests/models"
-		}
-	},
-	"require": {
-		"maslosoft/miniview": "*",
-		"latte/latte": ">=1.0",
-		"maslosoft/embedi": "*",
-		"maslosoft/signals": "*",
-		"symfony/console": ">=2.7",
-		"maslosoft/sitcom": "*",
-		"symfony/finder": ">=2.7",
-		"psr/log": "^1|^2|^3",
-		"maslosoft/cli-shared": "*"
-	},
-	"require-dev": {
-		"roave/security-advisories": "dev-latest",
-		"codeception/codeception": "^5",
-		"codeception/module-asserts": "^3",
-		"monolog/monolog": "^3|^4|^5"
-	}
+    "name": "maslosoft/sprite",
+    "version": "3.2.7",
+    "description": "Icons sprite generator with signals support",
+    "keywords": [
+        "sprite",
+        "sprites",
+        "icon",
+        "icons",
+        "yii"
+    ],
+    "homepage": "https://maslosoft.com/sprite/",
+    "license": [
+        "AGPL-3.0-only",
+        "proprietary"
+    ],
+    "authors": [
+        {
+            "name": "Peter Maselkowski",
+            "email": "pmaselkowski@gmail.com",
+            "homepage": "https://maslosoft.com",
+            "role": "Developer"
+        }
+    ],
+    "bin": [
+        "sprite"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Maslosoft\\Sprite\\": "src",
+            "Maslosoft\\SpriteTest\\Extensions\\": "tests/extensions"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Maslosoft\\SpriteTest\\Models\\": "tests/models"
+        }
+    },
+    "require": {
+        "maslosoft/miniview": "*",
+        "latte/latte": ">=1.0",
+        "maslosoft/embedi": "*",
+        "maslosoft/signals": "*",
+        "symfony/console": ">=2.7",
+        "maslosoft/sitcom": "*",
+        "symfony/finder": ">=2.7",
+        "psr/log": "^1|^2|^3",
+        "maslosoft/cli-shared": "*"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "codeception/codeception": "^5",
+        "codeception/module-asserts": "^3",
+        "monolog/monolog": "^3|^4|^5"
+    }
 }
