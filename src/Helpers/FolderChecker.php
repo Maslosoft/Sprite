@@ -25,7 +25,7 @@ use UnexpectedValueException;
 class FolderChecker
 {
 
-	public static function check(Configuration $config)
+	public static function check(Configuration $config): void
 	{
 		// Prepare folder
 		if (empty($config->runtimePath))
@@ -46,7 +46,7 @@ class FolderChecker
 		}
 		// Check if base name contains path
 		$basename = $config->basename;
-		if (strpos($basename, '/') !== false || strpos($basename, '\\') !== false)
+		if (str_contains($basename, '/') || str_contains($basename, '\\'))
 		{
 			$pathname = sprintf('%s/%s', $config->generatedPath, dirname($basename));
 			if (!is_writable($pathname))

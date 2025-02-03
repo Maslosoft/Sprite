@@ -30,49 +30,49 @@ class SpriteImage implements ArrayAccess
 	 * Base path for image
 	 * @var string
 	 */
-	public $basePath = '';
+	public string $basePath = '';
 
 	/**
 	 * Relative path to image, base for css class name
 	 * @var SplFileInfo
 	 */
-	public $info = '';
+	public SplFileInfo $info;
 
 	/**
 	 * Full path to file
 	 * @var string
 	 */
-	public $path = '';
+	public string $path = '';
 
 	/**
 	 * File size in bytes
 	 * @var int
 	 */
-	public $size = 0;
+	public int $size = 0;
 
 	/**
 	 * Width in pixels
 	 * @var int
 	 */
-	public $width = 0;
+	public int $width = 0;
 
 	/**
 	 * Height in pixels
 	 * @var int
 	 */
-	public $height = 0;
+	public int $height = 0;
 
 	/**
 	 * Mime type
 	 * @var string
 	 */
-	public $mime = '';
+	public string $mime = '';
 
 	/**
 	 * Image type based on mime data
 	 * @var string
 	 */
-	public $type = '';
+	public string $type = '';
 
 	/**
 	 * CSS sprite name
@@ -141,7 +141,7 @@ class SpriteImage implements ArrayAccess
 
 	public function isSquare(): bool
 	{
-		return (int) $this->width === (int) $this->height;
+		return $this->width === $this->height;
 	}
 
 	/**

@@ -49,7 +49,7 @@ EOT
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		(new Generator)->generate();
-		return 1;
+		return 0;
 	}
 
 	/**

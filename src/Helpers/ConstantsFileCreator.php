@@ -20,7 +20,7 @@ use RuntimeException;
 class ConstantsFileCreator
 {
 
-	public static function generate(SpritePackageInterface $package)
+	public static function generate(SpritePackageInterface $package): void
 	{
 		$path = $package->getConstantsClassPath();
 

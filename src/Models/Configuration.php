@@ -31,14 +31,14 @@ class Configuration extends Package
 	 *
 	 * @var string
 	 */
-	public $runtimePath = 'runtime';
+	public string $runtimePath = 'runtime';
 
 	/**
 	 *  Path for result sprite files
 	 *
 	 * @var string
 	 */
-	public $generatedPath = 'generated';
+	public string $generatedPath = 'generated';
 
 	/**
 	 * Base name for generated files
@@ -50,7 +50,7 @@ class Configuration extends Package
 	 *
 	 * @var string
 	 */
-	public $basename = 'sprite';
+	public string $basename = 'sprite';
 
 	/**
 	 *  CSS class name prefix used for all icons.
@@ -59,20 +59,20 @@ class Configuration extends Package
 	 *
 	 * @var string
 	 */
-	public $iconCssClass = 'icon';
+	public string $iconCssClass = 'icon';
 
 	/**
 	 * optimizer: pngcrush {src} {dst}
 	 * @var string
 	 */
-	public $optimizer = 'pngquant --ext .png --force {src}';
+	public string $optimizer = 'pngquant --ext .png --force {src}';
 
 	/**
 	 *  Generator classes used to generate files
 	 *
 	 * @var string[]
 	 */
-	public $generators = [
+	public array $generators = [
 		CssGenerator::class,
 		ImgGenerator::class,
 		CheatSheetGenerator::class,

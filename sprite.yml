@@ -25,7 +25,8 @@ generators:
   - Maslosoft\Sprite\Generators\ConstantsGenerator
   - Maslosoft\Sprite\Generators\OptimizedGenerator
 # PSR compliant logger
-logger: Psr\Log\NullLogger
+logger:
+  class: Psr\Log\NullLogger
 
 # Configuration options below are used only when running as local generator
 # These are same as one package config
@@ -34,6 +35,6 @@ logger: Psr\Log\NullLogger
 # See also class Maslosoft\Sprite\Model\Package
 paths:
   - assets
-# This is default, really should use some other class
+# This is default, really should use some other class.
 # Class Name `I` is proposed similarly as `i` tag
 constantsClass: Maslosoft\Sprite\Icon\I

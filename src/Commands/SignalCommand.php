@@ -49,14 +49,14 @@ EOT
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		(new SignaledGenerator)->generate(true);
-		return 1;
+		return 0;
 	}
 
 	/**
 	 * @SlotFor(Command)
 	 * @param Command $signal
 	 */
-	public function reacOn(Command $signal): void
+	public function reactOn(Command $signal)
 	{
 		$signal->add($this, 'sprite');
 	}

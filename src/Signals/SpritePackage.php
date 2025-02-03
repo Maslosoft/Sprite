@@ -33,14 +33,14 @@ class SpritePackage implements SignalInterface, SlotAwareInterface
 	 * Packages coming with this signal
 	 * @var SpritePackageInterface[]|Package[]
 	 */
-	private $packages = [];
+	private array $packages = [];
 	private $slot = null;
 
 	/**
 	 *
 	 * @param SpritePackageInterface|Package $package
 	 */
-	public function add(SpritePackageInterface $package)
+	public function add(SpritePackageInterface $package): void
 	{
 		$this->packages[] = $package;
 	}
@@ -49,12 +49,12 @@ class SpritePackage implements SignalInterface, SlotAwareInterface
 	 *
 	 * @return SpritePackageInterface[]|Package[]
 	 */
-	public function getPackages()
+	public function getPackages(): array
 	{
 		return $this->packages;
 	}
 
-	public function setSlot($slot)
+	public function setSlot($slot): void
 	{
 		$this->slot = $slot;
 	}

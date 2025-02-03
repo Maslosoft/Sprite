@@ -42,13 +42,15 @@ class CompoundGenerator extends Configuration implements GeneratorInterface, Log
 	 * Sprite packages
 	 * @var SpritePackageInterface[]
 	 */
-	private $packages = [];
+	private array $packages = [];
 
 	public function __construct($configName = self::DefaultInstanceId)
 	{
 
 		$config = new ConfigReader($configName);
 		$di = EmbeDi::fly($configName);
+
+		// Workaround for obsolete logger class provided as string
 		$loadedConfig = $config->toArray();
 		if(is_string($loadedConfig['logger']) && ClassChecker::exists($loadedConfig['logger']))
 		{

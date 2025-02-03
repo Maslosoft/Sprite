@@ -29,7 +29,7 @@ class Generator implements GeneratorInterface
 
 	use VersionTrait;
 
-	public function generate()
+	public function generate(): void
 	{
 		$package = new Package();
 

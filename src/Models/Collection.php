@@ -27,26 +27,26 @@ class Collection
 	 * Total width of all groups
 	 * @var int
 	 */
-	public $width = 0;
+	public int $width = 0;
 
 	/**
 	 * Total height of all groups
 	 * @var int
 	 */
-	public $height = 0;
-	private $sprites = [];
+	public int $height = 0;
+	private array $sprites;
 
 	/**
 	 * Image groups
 	 * @var Group[]
 	 */
-	private $groups = [];
+	private array $groups = [];
 
 	/**
 	 *
 	 * @param SpriteImage[] $sprites
 	 */
-	public function __construct($sprites = [])
+	public function __construct(array $sprites = [])
 	{
 		ImageSorter::sort($sprites);
 		$this->sprites = $sprites;
@@ -56,7 +56,7 @@ class Collection
 	 * Get groups
 	 * @return Group[]
 	 */
-	public function getGroups()
+	public function getGroups(): array
 	{
 		if (empty($this->groups))
 		{
@@ -69,12 +69,12 @@ class Collection
 	 * Get all sprites
 	 * @return SpriteImage[]
 	 */
-	public function getSprites()
+	public function getSprites(): array
 	{
 		return $this->sprites;
 	}
 
-	private function createGroups()
+	private function createGroups(): void
 	{
 		/**
 		 * TODO Sprites should be regrouped by hash,

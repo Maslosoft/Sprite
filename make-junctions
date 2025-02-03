@@ -1,6 +1,0 @@
-#!/bin/bash
-ln -s vendor/maslosoft/sprite-test/tests/unit unit
-#ln -s vendor/maslosoft/sprite-test/models models
-ln -s vendor/maslosoft/sprite-test/extensions extensions
-ln -s vendor/maslosoft/sprite-test/tests/_bootstrap.php
-ln -s vendor/maslosoft/sprite-test/assets

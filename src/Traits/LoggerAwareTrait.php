@@ -20,6 +20,7 @@ use Psr\Log\NullLogger;
 /**
  * LoggerAwareTrait
  *
+ * @see LoggerAwareInterface
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
 trait LoggerAwareTrait

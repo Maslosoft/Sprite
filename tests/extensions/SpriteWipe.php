@@ -20,11 +20,11 @@ class SpriteWipe extends Extension
 {
 
 	// list events to listen to
-	public static $events = [
+	public static array $events = [
 		'test.before' => 'testBefore',
 	];
 
-	public function testBefore(TestEvent $e)
+	public function testBefore(TestEvent $e): void
 	{
 		exec('rm -rf generated/sprite*');
 	}

@@ -29,7 +29,7 @@ class ImgGenerator implements SpriteGeneratorInterface
 	use ConfigurationAwareTrait,
 	  CollectionAwareTrait;
 
-	public function generate()
+	public function generate(): void
 	{
 		$collection = $this->getCollection();
 		$config = $this->getConfig();

@@ -28,10 +28,10 @@ class ImageFinder
 
 	/**
 	 *
-	 * @param SpritePackageInterface[]|Package[] $packages
+	 * @param Package[]|SpritePackageInterface[] $packages
 	 * @return SpriteImage[]
 	 */
-	public function find($packages)
+	public function find(array $packages): array
 	{
 		// Get icons
 		$sprites = [];

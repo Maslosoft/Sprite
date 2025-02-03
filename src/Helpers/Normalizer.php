@@ -24,7 +24,7 @@ use Maslosoft\Sprite\Models\SpriteImage;
 class Normalizer
 {
 
-	public static function camelize(SpritePackageInterface $package, SpriteImage $sprite)
+	public static function camelize(SpritePackageInterface $package, SpriteImage $sprite): string
 	{
 		$separator = '-';
 		$input = $sprite->name;
@@ -32,7 +32,7 @@ class Normalizer
 		return str_replace(' ', '', ucwords($input));
 	}
 
-	public static function decamelize(SpritePackageInterface $package, SpriteImage $sprite)
+	public static function decamelize(SpritePackageInterface $package, SpriteImage $sprite): string
 	{
 		$separator = '-';
 		$input = $sprite->name;

@@ -43,17 +43,17 @@ class Package implements SpritePackageInterface
 	 * ```
 	 * @var string
 	 */
-	public $constantsClass = '';
+	public string $constantsClass = '';
 
 	/**
 	 * Set this to create class if not yet exists
 	 * @var string
 	 */
-	public $constantsClassPath = '';
+	public string $constantsClassPath = '';
 
 	/**
 	 * Define any valid PHP callback to customize transformation constant names.
-	 * By default they are camelized, ie:
+	 * By default, they are camelized, ie:
 	 * ```
 	 * document-folder
 	 * ```
@@ -78,7 +78,7 @@ class Package implements SpritePackageInterface
 
 	/**
 	 * Define any valid PHP callback to customize transformation of CSS class names.
-	 * By default they are decamelized, ie:
+	 * By default, they are decamelized, ie:
 	 * ```
 	 * Document-Folder
 	 * ```
@@ -111,7 +111,7 @@ class Package implements SpritePackageInterface
 	 * With prefix it will append this prefix after `icon` part
 	 * @var string
 	 */
-	public $iconPrefix = '';
+	public string $iconPrefix = '';
 
 	/**
 	 * Absolute paths to scan for icons.
@@ -123,7 +123,7 @@ class Package implements SpritePackageInterface
 	 * ]
 	 * ```
 	 *
-	 * If path have sub directories these will be added to icon name as prefix.
+	 * If path have subdirectories these will be added to icon name as prefix.
 	 * For example, when configured path is
 	 * ```php
 	 * $paths = [
@@ -142,14 +142,14 @@ class Package implements SpritePackageInterface
 	 *
 	 * @var string[]
 	 */
-	public $paths = [];
+	public array $paths = [];
 
-	public function getConstantsClass()
+	public function getConstantsClass(): string
 	{
 		return $this->constantsClass;
 	}
 
-	public function getConstantsClassPath()
+	public function getConstantsClassPath(): string
 	{
 		return $this->constantsClassPath;
 	}
@@ -164,12 +164,12 @@ class Package implements SpritePackageInterface
 		return $this->cssClassNameConverter;
 	}
 
-	public function getIconPrefix()
+	public function getIconPrefix(): string
 	{
 		return $this->iconPrefix;
 	}
 
-	public function getPaths()
+	public function getPaths(): array
 	{
 		return $this->paths;
 	}

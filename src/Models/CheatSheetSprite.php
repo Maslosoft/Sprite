@@ -28,37 +28,37 @@ class CheatSheetSprite
 	 * Source image as base64 data URL
 	 * @var string
 	 */
-	public $image = '';
+	public string $image = '';
 
 	/**
 	 * Any CSS class, usually first one
 	 * @var string
 	 */
-	public $cssClass = '';
+	public string $cssClass = '';
 
 	/**
 	 * All CSS classes at which icon is available
 	 * @var string[]
 	 */
-	public $cssClasses = [];
+	public array $cssClasses = [];
 
 	/**
 	 * All class constants at which sprite is available
 	 * @var string[]
 	 */
-	public $constants = [];
+	public array $constants = [];
 
 	/**
 	 * All class constants at which sprite is available - short notation
 	 * @var string[]
 	 */
-	public $shortConstants = [];
+	public array $shortConstants = [];
 
 	/**
-	 * Whether has constants
+	 * Whether it has constants
 	 * @var bool
 	 */
-	public $hasConstants = false;
+	public bool $hasConstants = false;
 
 	public function __construct(SpriteImage $sprite)
 	{
